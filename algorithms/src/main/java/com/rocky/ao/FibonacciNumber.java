@@ -46,12 +46,4 @@ public class FibonacciNumber {
         }
         return second;
     }
-
-    public static void main(String[] args) {
-        System.out.println(fib1(3));
-        System.out.println(fib2(3));
-
-        Times.test("recursive", () -> fib1(30));
-        Times.test("other", () -> fib2(30));
-    }
 }
