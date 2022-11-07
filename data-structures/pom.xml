@@ -11,12 +11,5 @@
 
     <artifactId>data-structures</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.rocky.ao</groupId>
-            <artifactId>common-tools</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
 
 </project>

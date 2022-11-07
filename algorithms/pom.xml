@@ -10,13 +10,4 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>algorithms</artifactId>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.rocky.ao</groupId>
-            <artifactId>common-tools</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
-
 </project>

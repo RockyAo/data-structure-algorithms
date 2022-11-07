@@ -11,12 +11,20 @@
     <modules>
         <module>data-structures</module>
         <module>algorithms</module>
-        <module>common-tools</module>
+        <module>commons</module>
     </modules>
 
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.rocky.ao</groupId>
+            <artifactId>commons</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

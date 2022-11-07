@@ -1,5 +1,7 @@
 package com.rocky.ao;
 
+import com.rocky.utils.Times;
+
 /**
  * @author yun.ao
  * @date 2022/11/4 15:55
@@ -32,5 +34,8 @@ public class FibonacciNumber {
     public static void main(String[] args) {
         System.out.println(fib1(3));
         System.out.println(fib2(3));
+
+        Times.test("recursive", () -> fib1(30));
+        Times.test("other", () -> fib2(30));
     }
 }
