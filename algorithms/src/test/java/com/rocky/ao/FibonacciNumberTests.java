@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * @author yun.ao
  * @date 2022/11/7 16:18
- * @description
+ * @description fibonacci unit tests
  */
 public class FibonacciNumberTests {
     @Test
@@ -30,6 +30,4 @@ public class FibonacciNumberTests {
             Assert.assertEquals(FibonacciNumber.fib2(40), 102334155);
         });
     }
-
-
 }
