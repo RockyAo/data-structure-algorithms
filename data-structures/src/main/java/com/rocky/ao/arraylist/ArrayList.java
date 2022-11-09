@@ -17,18 +17,8 @@ public class ArrayList<E> {
     }
 
     ArrayList(int capaticy) {
-
-        capaticy = (capaticy < DEFAULT_CAPACITY) ? DEFAULT_CAPACITY : capaticy;
+        capaticy = Math.max(capaticy, DEFAULT_CAPACITY);
         elements = (E[]) new Object[capaticy];
-
-        System.out.println(capaticy);
-
-        E[] array = (E[]) new Object[10];
-
-        System.out.println(array.length);
-
-        System.out.println(elements);
-        System.out.println(elements.length);
     }
 
     public int size() {
