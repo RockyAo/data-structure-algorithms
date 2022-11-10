@@ -1,11 +1,15 @@
 package com.rocky.ao.arraylist;
 
+
+import com.rocky.ao.protocols.Collection;
+
 /**
  * @author yun.ao
  * @date 2022/11/7 18:04
  * @description
  */
-public class ArrayList<E> {
+public class ArrayList<E> implements Collection<E> {
+
     private static final int DEFAULT_CAPACITY = 10;
     private static final int ELEMENT_NOT_FOUND = -1;
 
@@ -21,23 +25,28 @@ public class ArrayList<E> {
         elements = (E[]) new Object[capaticy];
     }
 
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size() == 0;
     }
 
+    @Override
     public boolean contains(E element) {
         return indexOf(element) != ELEMENT_NOT_FOUND;
     }
 
+    @Override
     public E get(int index) {
         rangeCheck(index);
         return elements[index];
     }
 
+    @Override
     public E set(int index, E element) {
         rangeCheck(index);
 
@@ -46,10 +55,12 @@ public class ArrayList<E> {
         return old;
     }
 
+    @Override
     public void add(E element) {
         add(size, element);
     }
 
+    @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
 
@@ -62,6 +73,7 @@ public class ArrayList<E> {
         size++;
     }
 
+    @Override
     public E remove(int index) {
         rangeCheck(index);
 
@@ -73,6 +85,7 @@ public class ArrayList<E> {
         return old;
     }
 
+    @Override
     public int indexOf(E element) {
         if (element == null) {
             // 1
@@ -92,6 +105,7 @@ public class ArrayList<E> {
         return ELEMENT_NOT_FOUND;
     }
 
+    @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             elements[i] = null;

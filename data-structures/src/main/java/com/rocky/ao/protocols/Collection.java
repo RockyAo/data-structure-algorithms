@@ -5,7 +5,7 @@ package com.rocky.ao.protocols;
  * @date 2022/11/10 15:04
  * @description
  */
-public interface Listable<E> {
+public interface Collection<E> {
     /**
      * 获取集合大小
      * @return 整型
