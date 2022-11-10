@@ -5,5 +5,7 @@ package com.rocky.ao.linkedlist;
  * @date 2022/11/10 14:58
  * @description
  */
-public class Node {
+public class Node<E> {
+    public E element;
+    public Node<E> next;
 }
