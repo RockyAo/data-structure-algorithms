@@ -1,5 +1,6 @@
 package com.rocky.ao.linkedlist;
 
+import com.rocky.ao.base.AbstractList;
 import com.rocky.ao.protocols.Collection;
 
 /**
@@ -7,22 +8,8 @@ import com.rocky.ao.protocols.Collection;
  * @date 2022/11/10 14:54
  * @description
  */
-public class LinkedList<E> implements Collection<E> {
-
-    @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean contains(E element) {
-        return false;
-    }
+public class LinkedList<E> extends AbstractList<E> {
+    private Node<E> first;
 
     @Override
     public E get(int index) {
@@ -32,11 +19,6 @@ public class LinkedList<E> implements Collection<E> {
     @Override
     public E set(int index, E element) {
         return null;
-    }
-
-    @Override
-    public void add(E element) {
-
     }
 
     @Override
@@ -56,6 +38,7 @@ public class LinkedList<E> implements Collection<E> {
 
     @Override
     public void clear() {
-
+        size = 0;
+        first = null;
     }
 }

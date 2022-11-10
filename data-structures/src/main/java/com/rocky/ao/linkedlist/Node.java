@@ -8,4 +8,9 @@ package com.rocky.ao.linkedlist;
 public class Node<E> {
     public E element;
     public Node<E> next;
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
 }
