@@ -9,8 +9,8 @@ public class Node<E> {
     public E element;
     public Node<E> next;
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
+    public Node(E element, Node<E> next) {
+        this.element = element;
+        this.next = next;
     }
 }
