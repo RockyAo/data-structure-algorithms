@@ -1,6 +1,7 @@
 package com.rocky.ao.arraylist;
 
 
+import com.rocky.ao.base.AbstractList;
 import com.rocky.ao.protocols.Collection;
 
 /**
@@ -8,12 +9,9 @@ import com.rocky.ao.protocols.Collection;
  * @date 2022/11/7 18:04
  * @description
  */
-public class ArrayList<E> implements Collection<E> {
-
+public class ArrayList<E> extends AbstractList<E> {
     private static final int DEFAULT_CAPACITY = 10;
-    private static final int ELEMENT_NOT_FOUND = -1;
 
-    private int size;
     private E[] elements;
 
     ArrayList() {
@@ -23,21 +21,6 @@ public class ArrayList<E> implements Collection<E> {
     ArrayList(int capaticy) {
         capaticy = Math.max(capaticy, DEFAULT_CAPACITY);
         elements = (E[]) new Object[capaticy];
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
-    @Override
-    public boolean contains(E element) {
-        return indexOf(element) != ELEMENT_NOT_FOUND;
     }
 
     @Override
@@ -55,10 +38,6 @@ public class ArrayList<E> implements Collection<E> {
         return old;
     }
 
-    @Override
-    public void add(E element) {
-        add(size, element);
-    }
 
     @Override
     public void add(int index, E element) {
@@ -134,22 +113,6 @@ public class ArrayList<E> implements Collection<E> {
         elements = newElements;
 
         System.out.println(oldCapacity + "扩容为" + newCapacity);
-    }
-
-    private void raiseOutOfBoundsException(int index) {
-        throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
-    }
-
-    private void rangeCheck(int index) {
-        if (index < 0 || index >= size) {
-            raiseOutOfBoundsException(index);
-        }
-    }
-
-    private void rangeCheckForAdd(int index) {
-        if (index < 0 || index > size) {
-            raiseOutOfBoundsException(index);
-        }
     }
 
     @Override

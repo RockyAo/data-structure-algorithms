@@ -6,6 +6,8 @@ package com.rocky.ao.protocols;
  * @description
  */
 public interface Collection<E> {
+    int ELEMENT_NOT_FOUND = -1;
+
     /**
      * 获取集合大小
      * @return 整型
