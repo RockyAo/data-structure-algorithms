@@ -1,4 +1,4 @@
-package com.rocky.ao;
+package com.rocky.ao.FibonacciNumber509;
 
 import com.rocky.utils.Times;
 
@@ -21,7 +21,7 @@ import com.rocky.utils.Times;
  * F(0) = 0, F(1) = 1
  * F(n) = F(n - 1) + F(n - 2), for n > 1.
  * Given n, calculate F(n).
- *
+ *  https://leetcode.com/problems/fibonacci-number/
  */
 public class FibonacciNumber {
     public static int fib1(int number) {
