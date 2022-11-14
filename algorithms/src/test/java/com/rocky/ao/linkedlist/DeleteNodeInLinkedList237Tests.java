@@ -11,10 +11,10 @@ import org.junit.Test;
 public class DeleteNodeInLinkedList237Tests {
     @Test
     public void deleteNode() {
-        DeleteNodeInLinkedList237.ListNode node4 = new DeleteNodeInLinkedList237.ListNode(4);
-        DeleteNodeInLinkedList237.ListNode node5 = new DeleteNodeInLinkedList237.ListNode(5);
-        DeleteNodeInLinkedList237.ListNode node1 = new DeleteNodeInLinkedList237.ListNode(1);
-        DeleteNodeInLinkedList237.ListNode node9 = new DeleteNodeInLinkedList237.ListNode(9);
+        ListNode node4 = new ListNode(4);
+        ListNode node5 = new ListNode(5);
+        ListNode node1 = new ListNode(1);
+        ListNode node9 = new ListNode(9);
 
         node4.next = node5;
         node5.next = node1;
