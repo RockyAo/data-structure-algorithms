@@ -9,6 +9,13 @@ package com.rocky.ao.linkedlist;
  */
 public class ReverseLinkedList206 {
     public ListNode reverseListRecursion(ListNode head) {
-        return null;
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode newHead = reverseListRecursion(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
     }
 }
