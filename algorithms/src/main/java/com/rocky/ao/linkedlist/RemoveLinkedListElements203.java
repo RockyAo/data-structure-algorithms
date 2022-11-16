@@ -20,7 +20,7 @@ public class RemoveLinkedListElements203 {
 
     public ListNode removeElements2(ListNode head, int val) {
         // interation
-        
+
         return null;
     }
 }
