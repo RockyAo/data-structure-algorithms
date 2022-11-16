@@ -18,4 +18,26 @@ public class ReverseLinkedList206 {
         head.next = null;
         return newHead;
     }
+
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode newHead = null;
+        while (head != null) {
+            // let temp node linked to head's next
+            ListNode temp = head.next;
+
+            // let head's next linked to newHead
+            head.next = newHead;
+
+            // let newHead equals to head
+            newHead = head;
+
+            // let head link to temp head
+            head = temp;
+        }
+        return newHead;
+    }
 }
