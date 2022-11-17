@@ -28,11 +28,26 @@ public class DoubleLinkedList<E> extends AbstractList<E> {
     @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
-        if (index == 0) {
-            first = new DoubleNode<>(element, first.prev, first);
+        if (index == size) {
+            DoubleNode<E> oldLast = last;
+            last = new DoubleNode<>(element, last, null);
+            if (oldLast == null) {
+                // if last node is null, that means the linked list is an empty list.
+                // try to add first elements
+                first = last;
+            } else {
+                oldLast.next = last;
+            }
         } else {
-            DoubleNode<E> prev = nodeAt(index - 1);
-            prev.next = new DoubleNode<>(element, ,prev.next);
+            DoubleNode<E> next = nodeAt(index);
+            DoubleNode<E> prev = next.prev;
+            DoubleNode<E> elementNode = new DoubleNode<>(element, prev, next);
+            next.prev = elementNode;
+            if (prev == null) {
+                first = elementNode;
+            } else {
+                prev.next = elementNode;
+            }
         }
         size ++;
     }
