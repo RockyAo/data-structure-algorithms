@@ -56,16 +56,24 @@ public class DoubleLinkedList<E> extends AbstractList<E> {
     public E remove(int index) {
         rangeCheck(index);
 
-        DoubleNode<E> node = this.first;
+        DoubleNode<E> node = nodeAt(index);
+        DoubleNode<E> prev = node.prev;
+        DoubleNode<E> next = node.next;
 
-        if (index == 0) {
-            first = first.next;
+        if (prev == null) {
+            // index == 0
+            first = next;
         } else {
-
-            DoubleNode<E> prev = nodeAt(index - 1);
-            node = prev.next;
-            prev.next = node.next;
+            prev.next = next;
         }
+
+        if (last == null) {
+            // index == size - 1
+            last = prev;
+        } else {
+            next.prev = prev;
+        }
+
         size --;
         return node.element;
     }
