@@ -27,25 +27,29 @@ public class DoubleCircularLinkedList<E> extends AbstractList<E> {
     @Override
     public void add(int index, E element) {
         rangeCheckForAdd(index);
+
         if (index == size) {
             DoubleNode<E> oldLast = last;
-            last = new DoubleNode<>(element, last, null);
+            last = new DoubleNode<>(element, last, first);
             if (oldLast == null) {
                 // if last node is null, that means the linked list is an empty list.
                 // try to add first elements
                 first = last;
+                first.next = first;
+                first.prev = first;
             } else {
                 oldLast.next = last;
+                first.prev = last;
             }
         } else {
             DoubleNode<E> next = nodeAt(index);
             DoubleNode<E> prev = next.prev;
             DoubleNode<E> elementNode = new DoubleNode<>(element, prev, next);
             next.prev = elementNode;
-            if (prev == null) {
+            prev.next = elementNode;
+
+            if (next == first) {
                 first = elementNode;
-            } else {
-                prev.next = elementNode;
             }
         }
         size ++;
