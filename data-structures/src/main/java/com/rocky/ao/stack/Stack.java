@@ -1,22 +1,29 @@
 package com.rocky.ao.stack;
 
-import com.rocky.ao.arraylist.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author yun.ao
  * @date 2022/11/21 15:28
  * @description
  */
-public class Stack<E> extends ArrayList<E> {
+public class Stack<E> {
+    private List<E> list = new ArrayList();
+
+    public int size() {
+        return list.size();
+    }
+
     public void push(E element) {
-        add(element);
+        list.add(element);
     }
 
     public E pop() {
-        return remove(size - 1);
+        return list.remove(list.size() - 1);
     }
 
     public E top() {
-        return get(size - 1);
+        return list.get(list.size() - 1);
     }
 }
