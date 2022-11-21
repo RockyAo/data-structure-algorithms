@@ -23,7 +23,7 @@ public class Stack<E> {
         return list.remove(list.size() - 1);
     }
 
-    public E top() {
+    public E peek() {
         return list.get(list.size() - 1);
     }
 }
