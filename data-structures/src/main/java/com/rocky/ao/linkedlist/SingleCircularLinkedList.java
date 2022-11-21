@@ -27,10 +27,11 @@ public class SingleCircularLinkedList<E> extends AbstractList<E> {
     public void add(int index, E element) {
         rangeCheckForAdd(index);
         if (index == 0) {
-            first = new Node<>(element, first);
             // if the list is empty first node is end, otherwise, get the last node and then let
             // the last node's next linked to the first.
             Node<E> lastNode = size == 0 ? first : nodeAt(size - 1);
+            first = new Node<>(element, first);
+
             lastNode.next = first;
         } else {
 
