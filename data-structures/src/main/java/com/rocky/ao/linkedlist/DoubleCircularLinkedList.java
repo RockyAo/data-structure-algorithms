@@ -10,6 +10,7 @@ import com.rocky.ao.base.AbstractList;
 public class DoubleCircularLinkedList<E> extends AbstractList<E> {
     private DoubleNode<E> first;
     private DoubleNode<E> last;
+    private DoubleNode<E> current;
 
     @Override
     public E get(int index) {
@@ -58,30 +59,7 @@ public class DoubleCircularLinkedList<E> extends AbstractList<E> {
     @Override
     public E remove(int index) {
         rangeCheck(index);
-
-        DoubleNode<E> node = first;
-
-        if (size == 1) {
-            first = null;
-            last = null;
-        } else {
-            node = nodeAt(index);
-            DoubleNode<E> prev = node.prev;
-            DoubleNode<E> next = node.next;
-
-            if (node == first) {
-                // index == 0
-                first = next;
-            }
-
-            if (node == last) {
-                // index == size - 1
-                last = prev;
-            }
-        }
-
-        size --;
-        return node.element;
+        return remove(nodeAt(index));
     }
 
     @Override
@@ -155,6 +133,70 @@ public class DoubleCircularLinkedList<E> extends AbstractList<E> {
         }
         string.append("]");
         return string.toString();
+    }
+
+    // functions use to deal with Josephus problems.
+    public void reset() {
+        current = first;
+    }
+
+    public E next() {
+        if (current == null) {
+            return null;
+        }
+        current = current.next;
+        return current.element;
+    }
+
+    public E remove() {
+        if (current == null) {
+            return null;
+        }
+
+        DoubleNode<E> next = current.next;
+        E removeElement = remove(current);
+        current = size == 0 ? null : next;
+        return removeElement;
+    }
+
+    private E remove(DoubleNode<E> node) {
+        if (size == 1) {
+            first = null;
+            last = null;
+        } else {
+            DoubleNode<E> prev = node.prev;
+            DoubleNode<E> next = node.next;
+
+            if (node == first) {
+                // index == 0
+                first = next;
+            }
+
+            if (node == last) {
+                // index == size - 1
+                last = prev;
+            }
+        }
+
+        size --;
+        return node.element;
+    }
+
+
+    static void josephus(int count) {
+        DoubleCircularLinkedList<int> list = new DoubleCircularLinkedList<int>();
+        for (int i = 0; i < 8; i++) {
+            list.add(i);
+        }
+
+        list.reset();
+
+        while (!list.isEmpty()) {
+            while (count-- > 0) {
+                list.next();
+            }
+            list.remove();
+        }
     }
 }
 
