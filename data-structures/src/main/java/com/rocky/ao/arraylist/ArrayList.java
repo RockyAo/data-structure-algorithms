@@ -14,11 +14,11 @@ public class ArrayList<E> extends AbstractList<E> {
 
     private E[] elements;
 
-    ArrayList() {
+    public ArrayList() {
         this(DEFAULT_CAPACITY);
     }
 
-    ArrayList(int capaticy) {
+    public ArrayList(int capaticy) {
         capaticy = Math.max(capaticy, DEFAULT_CAPACITY);
         elements = (E[]) new Object[capaticy];
     }
