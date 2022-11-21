@@ -10,7 +10,7 @@ import java.util.Stack;
  * https://leetcode.com/problems/valid-parentheses/
  * https://leetcode.cn/problems/valid-parentheses/
  */
-public class ValidParentheses {
+public class ValidParentheses20 {
     public boolean isValid1(String s) {
         while (s.contains("{}") || s.contains("[]") || s.contains("()")) {
             s = s.replace("{}", "");
