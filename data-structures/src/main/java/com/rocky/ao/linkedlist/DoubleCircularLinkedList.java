@@ -59,22 +59,25 @@ public class DoubleCircularLinkedList<E> extends AbstractList<E> {
     public E remove(int index) {
         rangeCheck(index);
 
-        DoubleNode<E> node = nodeAt(index);
-        DoubleNode<E> prev = node.prev;
-        DoubleNode<E> next = node.next;
+        DoubleNode<E> node = first;
 
-        if (prev == null) {
-            // index == 0
-            first = next;
+        if (size == 1) {
+            first = null;
+            last = null;
         } else {
-            prev.next = next;
-        }
+            node = nodeAt(index);
+            DoubleNode<E> prev = node.prev;
+            DoubleNode<E> next = node.next;
 
-        if (last == null) {
-            // index == size - 1
-            last = prev;
-        } else {
-            next.prev = prev;
+            if (node == first) {
+                // index == 0
+                first = next;
+            }
+
+            if (node == last) {
+                // index == size - 1
+                last = prev;
+            }
         }
 
         size --;
