@@ -9,6 +9,6 @@ import java.util.LinkedList;
  */
 public class StandardLibraryTests {
     public static void main(String[] args) {
-        new LinkedList<int>();
+        new LinkedList<Integer>();
     }
 }

@@ -184,7 +184,7 @@ public class DoubleCircularLinkedList<E> extends AbstractList<E> {
 
 
     static void josephus(int count) {
-        DoubleCircularLinkedList<int> list = new DoubleCircularLinkedList<int>();
+        DoubleCircularLinkedList<Integer> list = new DoubleCircularLinkedList<>();
         for (int i = 0; i < 8; i++) {
             list.add(i);
         }

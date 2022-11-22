@@ -11,6 +11,6 @@ public class StackStandardLibraryTests {
     public static void main(String[] args) {
 
         // 线程安全
-        Stack<int> stack = new Stack<int>();
+        Stack<Integer> stack = new Stack<>();
     }
 }

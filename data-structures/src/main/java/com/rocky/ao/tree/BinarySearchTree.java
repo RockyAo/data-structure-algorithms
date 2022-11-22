@@ -1,6 +1,7 @@
 package com.rocky.ao.tree;
 
-import hu.webarticum.treeprinter.printer.traditional.TraditionalTreePrinter;
+import com.rocky.utils.printer.BinaryTreeInfo;
+import com.rocky.utils.printer.BinaryTrees;
 
 import java.util.Comparator;
 
@@ -9,7 +10,20 @@ import java.util.Comparator;
  * @date 2022/11/22 16:24
  * @description 二叉搜索树
  */
-public class BinarySearchTree<E> {
+public class BinarySearchTree<E> implements BinaryTreeInfo {
+    public static void main(String[] args) {
+        Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3 };
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        for (int value: integers) {
+            bst.add(value);
+        }
+
+        BinaryTrees.print(bst);
+    }
+
+
     private int size;
     private Node<E> root;
     private Comparator<E> comparator;
@@ -66,9 +80,9 @@ public class BinarySearchTree<E> {
         // add new node
         Node<E> newNode = new Node<>(element, parentNode);
         if (comparedResult == ComparedResult.ASCENDING) {
-            parentNode.right = newNode;
-        } else if (comparedResult == ComparedResult.DESCENDING) {
             parentNode.left = newNode;
+        } else if (comparedResult == ComparedResult.DESCENDING) {
+            parentNode.right = newNode;
         }
         size++;
     }
@@ -102,14 +116,23 @@ public class BinarySearchTree<E> {
         }
     }
 
+    @Override
+    public Object root() {
+        return root;
+    }
 
-    public static void main(String[] args) {
-        Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3 };
+    @Override
+    public Object left(Object node) {
+        return ((Node<E>)node).left;
+    }
 
-        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+    @Override
+    public Object right(Object node) {
+        return ((Node<E>)node).right;
+    }
 
-        for (int value: integers) {
-            bst.add(value);
-        }
+    @Override
+    public Object string(Object node) {
+        return ((Node<E>)node).element;
     }
 }
