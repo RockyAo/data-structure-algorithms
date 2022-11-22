@@ -84,6 +84,8 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         } else if (comparedResult == ComparedResult.DESCENDING) {
             parentNode.right = newNode;
         }
+
+    
         size++;
     }
 
@@ -93,20 +95,33 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         return false;
     }
 
+    /**
+     * check element exist
+     * @param element element
+     */
     private void elementNotNullCheck(E element) {
         if (element == null) {
             throw new IllegalArgumentException("element can not be null");
         }
     }
 
+    /**
+     * compare two values
+     * @param e1 value1
+     * @param e2 value2
+     * @return ComparedResult
+     */
     private ComparedResult compare(E e1, E e2) {
         int result;
         if (comparator != null) {
+            // if had comparator use comparator to compare values
             result = comparator.compare(e1, e2);
         } else {
+            // otherwise, use Comparable interface to compare values
             result = ((Comparable<E>) e1).compareTo(e2);
         }
 
+        // generate compare result
         if (result > 0) {
             return ComparedResult.DESCENDING;
         } else if (result < 0) {
@@ -116,6 +131,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         }
     }
 
+    // BinaryTreeInfo interface , use to print tree structure
     @Override
     public Object root() {
         return root;
