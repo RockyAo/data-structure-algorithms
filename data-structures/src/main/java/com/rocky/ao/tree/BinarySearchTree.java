@@ -12,7 +12,7 @@ import java.util.Comparator;
  */
 public class BinarySearchTree<E> implements BinaryTreeInfo {
     public static void main(String[] args) {
-        Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3 };
+        Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3, 12, 1 };
 
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
@@ -67,7 +67,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
             parentNode = node;
             switch (comparedResult) {
                 case EQUAL:
-                    return;
+                    node.element = element;
                 case ASCENDING:
                     node = node.left;
                     break;
@@ -85,7 +85,6 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
             parentNode.right = newNode;
         }
 
-    
         size++;
     }
 

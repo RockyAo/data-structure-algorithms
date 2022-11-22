@@ -104,9 +104,9 @@ public class DoubleLinkedList<E> extends AbstractList<E> {
 
     @Override
     public void clear() {
-        size = 0;
         first = null;
         last = null;
+        size = 0;
     }
 
     /**

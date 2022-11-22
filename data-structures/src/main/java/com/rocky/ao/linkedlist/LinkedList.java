@@ -81,8 +81,8 @@ public class LinkedList<E> extends AbstractList<E> {
 
     @Override
     public void clear() {
-        size = 0;
         first = null;
+        size = 0;
     }
 
     /**
