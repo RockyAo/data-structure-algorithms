@@ -1,5 +1,7 @@
 package com.rocky.ao.tree;
 
+import hu.webarticum.treeprinter.printer.traditional.TraditionalTreePrinter;
+
 import java.util.Comparator;
 
 /**
@@ -97,6 +99,17 @@ public class BinarySearchTree<E> {
             return ComparedResult.ASCENDING;
         } else {
             return ComparedResult.EQUAL;
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3 };
+
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+
+        for (int value: integers) {
+            bst.add(value);
         }
     }
 }
