@@ -6,12 +6,14 @@ package com.rocky.ao.tree;
  * @description 二叉搜索树
  */
 public class BinarySearchTree<E> {
+    private int size;
+
     public int size() {
-        return 0;
+        return size;
     }
 
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     public void clear() {}
