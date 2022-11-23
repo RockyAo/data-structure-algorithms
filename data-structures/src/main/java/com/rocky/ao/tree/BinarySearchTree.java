@@ -66,7 +66,9 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         return size == 0;
     }
 
-    public void clear() {}
+    public void clear() {
+        root = null;
+    }
 
     public void add(E element) {
         elementNotNullCheck(element);
@@ -110,10 +112,70 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         size++;
     }
 
-    public void remove(E element) {}
+    public void remove(E element) {
+        remove(node(element));
+    }
+
+    private void remove(Node<E> node) {
+        if (node == null) { return; }
+
+        if (node.hasTwoChildren()) { //度为2的节点
+            Node<E> successor = successor(node);
+            node.element = successor.element;
+            node = successor;
+        }
+
+        Node<E> replacement = node.left != null ? node.left : node.right;
+
+        if (replacement != null) {
+            // node 是度为1
+            replacement.parent = node.parent;
+
+            if (node.parent == null) {
+                root = replacement;
+            }
+
+            if (node == node.parent.left) {
+                node.parent.left = replacement;
+            } else if (node == node.parent.right) {
+                node.parent.right = replacement;
+            }
+
+        } else if (node.parent == null) {
+            // 叶子且为根节点
+            root = null;
+        } else {
+            // 叶子
+            if (node == node.parent.right) {
+                node.parent.right = null;
+            } else {
+                node.parent.left = null;
+            }
+        }
+
+        size--;
+    }
+
+    private Node<E> node(E element) {
+        Node<E> node = root;
+
+        while (node != null) {
+            ComparedResult comparedResult = compare(element, node.element);
+
+            switch (comparedResult) {
+                case EQUAL:
+                    return node;
+                case ASCENDING:
+                    node = node.right;
+                case DESCENDING:
+                    node = node.left;
+            }
+        }
+        return null;
+    }
 
     public boolean contains(E element) {
-        return false;
+        return node(element) != null;
     }
 
     /**
