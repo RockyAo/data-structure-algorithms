@@ -26,6 +26,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         bst.preorderTraversal();
 
         bst.inorderTraversal();
+        bst.postorderTraversal();
     }
 
 
@@ -165,6 +166,21 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         inorderTraversal(node.left);
         System.out.println(node.element);
         inorderTraversal(node.right);
+    }
+
+    // postorder traversal
+    public void postorderTraversal() {
+        System.out.println("start ------- postorder traversal");
+        postorderTraversal(root);
+        System.out.println("end ------- postorder traversal");
+    }
+
+    private void postorderTraversal(Node<E> node) {
+        if (node == null) { return; }
+
+        postorderTraversal(node.left);
+        postorderTraversal(node.right);
+        System.out.println(node.element);
     }
 
     // BinaryTreeInfo interface , use to print tree structure
