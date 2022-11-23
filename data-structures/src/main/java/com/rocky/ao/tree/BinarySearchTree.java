@@ -4,6 +4,8 @@ import com.rocky.utils.printer.BinaryTreeInfo;
 import com.rocky.utils.printer.BinaryTrees;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author yun.ao
@@ -23,10 +25,11 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         BinaryTrees.print(bst);
 
 
-        bst.preorderTraversal();
-
-        bst.inorderTraversal();
-        bst.postorderTraversal();
+//        bst.preorderTraversal();
+//
+//        bst.inorderTraversal();
+//        bst.postorderTraversal();
+        bst.levelOrderTraversal();
     }
 
 
@@ -182,6 +185,32 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         postorderTraversal(node.right);
         System.out.println(node.element);
     }
+
+    // level order traversal
+    public void levelOrderTraversal() {
+        System.out.println("start ------- level order traversal");
+        if (root == null) { return; }
+
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+            System.out.println(node.element);
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+
+        System.out.println("end ------- level order traversal");
+    }
+
+
 
     // BinaryTreeInfo interface , use to print tree structure
     @Override
