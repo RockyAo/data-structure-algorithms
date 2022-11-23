@@ -152,9 +152,50 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         }
     }
 
+    public int height() {
+        if (root == null) { return 0; }
+
+        int height = 0;
+
+        // store level size, when level size equals to zero,
+        // let height add one.
+        int levelSize = 1;
+
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+
+            levelSize--;
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+
+            if (levelSize == 0) {
+                levelSize = queue.size();
+                height += 1;
+            }
+        }
+        return height;
+    }
+
+    public int height1() {
+        return height(root);
+    }
+
+    private int height(Node<E> node) {
+        if (node == null) { return 0; }
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
     // traversal
     // preorder traversal
-
     public void preorderTraversal(Visitor<E> visitor) {
         System.out.println("start ------- preorder traversal");
         preorderTraversal(root, visitor);
