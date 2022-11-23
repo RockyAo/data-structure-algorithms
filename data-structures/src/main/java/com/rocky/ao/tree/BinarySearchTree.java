@@ -210,12 +210,15 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
                 return false;
             }
 
-            if (node.left != null && node.right != null) {
+            if (node.left != null) {
                 queue.offer(node.left);
-                queue.offer(node.right);
-            } else if (node.left == null && node.right == null) {
+            } else if (node.right != null) {
                 return false;
-            } else { // all leaf node
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            } else {
                 leaf = true;
             }
         }
