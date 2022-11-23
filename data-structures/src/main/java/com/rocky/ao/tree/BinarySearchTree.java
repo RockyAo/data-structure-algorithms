@@ -152,6 +152,44 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         }
     }
 
+    private Node<E> predecessor(Node<E> node) {
+        if (node == null) { return null; };
+
+        Node<E> p = node.left;
+        if (p != null) {
+            while (p.right != null) {
+                p = p.right;
+            }
+            return p;
+        }
+
+        // search in parent node
+        while (node.parent != null && node == node.parent.left) {
+            node = node.parent;
+        }
+
+        return node.parent;
+    }
+
+    private Node<E> successor(Node<E> node) {
+        if (node == null) { return null; };
+
+        Node<E> p = node.right;
+        if (p != null) {
+            while (p.left != null) {
+                p = p.left;
+            }
+            return p;
+        }
+
+        // search in parent node
+        while (node.parent != null && node == node.parent.right) {
+            node = node.parent;
+        }
+
+        return node.parent;
+    }
+
     public int height() {
         if (root == null) { return 0; }
 
