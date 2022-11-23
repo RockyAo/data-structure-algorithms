@@ -13,8 +13,10 @@ import java.util.Queue;
  * @description 二叉搜索树
  */
 public class BinarySearchTree<E> implements BinaryTreeInfo {
-    public static interface Visitor<E> {
-        void visit(E element);
+    public static abstract class Visitor<E> {
+        boolean isStop;
+
+        abstract boolean visit(E element);
     }
 
     public static void main(String[] args) {
@@ -33,8 +35,13 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 //
 //        bst.inorderTraversal();
 //        bst.postorderTraversal();
-        bst.levelOrderTraversal(element -> {
-            System.out.print(element + ",");
+        bst.levelOrderTraversal(new Visitor<Integer>() {
+            @Override
+            boolean visit(Integer element) {
+                System.out.print(element + ",");
+
+                return element == 2 ? true : false;
+            }
         });
     }
 
@@ -155,9 +162,8 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
     private void preorderTraversal(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor == null) { return; }
-        visitor.visit(node.element);
-
+        if (node == null || visitor.isStop) { return; }
+        visitor.isStop = visitor.visit(node.element);
         preorderTraversal(node.left, visitor);
         preorderTraversal(node.right, visitor);
     }
@@ -170,25 +176,32 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
     private void inorderTraversal(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor == null) { return; }
+        if (node == null || visitor.isStop) { return; }
 
         inorderTraversal(node.left, visitor);
-        visitor.visit(node.element);
+        if (visitor.isStop) {
+            return;
+        }
+        visitor.isStop = visitor.visit(node.element);
         inorderTraversal(node.right, visitor);
     }
 
     // postorder traversal
     public void postorderTraversal(Visitor<E> visitor) {
         System.out.println("start ------- postorder traversal");
-        postorderTraversal(root);
+        postorderTraversal(root, visitor);
         System.out.println("end ------- postorder traversal");
     }
 
     private void postorderTraversal(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor == null) { return; }
+        if (node == null || visitor.isStop) { return; }
 
         postorderTraversal(node.left, visitor);
         postorderTraversal(node.right, visitor);
+
+        if (visitor.isStop) {
+            return;
+        }
         visitor.visit(node.element);
     }
 
@@ -203,7 +216,9 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
 
-            visitor.visit(node.element);
+            if (visitor.visit(node.element)) {
+                return;
+            }
 
             if (node.left != null) {
                 queue.offer(node.left);
