@@ -13,6 +13,10 @@ import java.util.Queue;
  * @description 二叉搜索树
  */
 public class BinarySearchTree<E> implements BinaryTreeInfo {
+    public static interface Visitor<E> {
+        void visit(E element);
+    }
+
     public static void main(String[] args) {
         Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3, 12, 1 };
 
@@ -29,7 +33,9 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 //
 //        bst.inorderTraversal();
 //        bst.postorderTraversal();
-        bst.levelOrderTraversal();
+        bst.levelOrderTraversal(element -> {
+            System.out.print(element + ",");
+        });
     }
 
 
@@ -142,61 +148,62 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     // traversal
     // preorder traversal
 
-    public void preorderTraversal() {
+    public void preorderTraversal(Visitor<E> visitor) {
         System.out.println("start ------- preorder traversal");
-        preorderTraversal(root);
+        preorderTraversal(root, visitor);
         System.out.println("end ------- preorder traversal");
     }
 
-    private void preorderTraversal(Node<E> node) {
-        if (node == null) { return; }
-        System.out.println(" " + node.element);
+    private void preorderTraversal(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor == null) { return; }
+        visitor.visit(node.element);
 
-        preorderTraversal(node.left);
-        preorderTraversal(node.right);
+        preorderTraversal(node.left, visitor);
+        preorderTraversal(node.right, visitor);
     }
 
     // inorder traversal
-    public void inorderTraversal() {
+    public void inorderTraversal(Visitor<E> visitor) {
         System.out.println("start ------- inorder traversal");
-        inorderTraversal(root);
+        inorderTraversal(root, visitor);
         System.out.println("end ------- inorder traversal");
     }
 
-    private void inorderTraversal(Node<E> node) {
-        if (node == null) { return; }
+    private void inorderTraversal(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor == null) { return; }
 
-        inorderTraversal(node.left);
-        System.out.println(node.element);
-        inorderTraversal(node.right);
+        inorderTraversal(node.left, visitor);
+        visitor.visit(node.element);
+        inorderTraversal(node.right, visitor);
     }
 
     // postorder traversal
-    public void postorderTraversal() {
+    public void postorderTraversal(Visitor<E> visitor) {
         System.out.println("start ------- postorder traversal");
         postorderTraversal(root);
         System.out.println("end ------- postorder traversal");
     }
 
-    private void postorderTraversal(Node<E> node) {
-        if (node == null) { return; }
+    private void postorderTraversal(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor == null) { return; }
 
-        postorderTraversal(node.left);
-        postorderTraversal(node.right);
-        System.out.println(node.element);
+        postorderTraversal(node.left, visitor);
+        postorderTraversal(node.right, visitor);
+        visitor.visit(node.element);
     }
 
     // level order traversal
-    public void levelOrderTraversal() {
+    public void levelOrderTraversal(Visitor<E> visitor) {
         System.out.println("start ------- level order traversal");
-        if (root == null) { return; }
+        if (root == null || visitor == null) { return; }
 
         Queue<Node<E>> queue = new LinkedList<>();
         queue.offer(root);
 
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
-            System.out.println(node.element);
+
+            visitor.visit(node.element);
 
             if (node.left != null) {
                 queue.offer(node.left);
