@@ -29,8 +29,6 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         }
 
         BinaryTrees.print(bst);
-
-
 //        bst.preorderTraversal();
 //
 //        bst.inorderTraversal();
