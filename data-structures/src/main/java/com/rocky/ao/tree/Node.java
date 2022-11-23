@@ -25,4 +25,12 @@ public class Node<E> {
     public Node(E element) {
         this(element, null, null, null);
     }
+
+    public boolean isLeaf() {
+        return left == null && right == null;
+    }
+
+    public boolean hasTwoChildren() {
+        return left != null && right != null;
+    }
 }

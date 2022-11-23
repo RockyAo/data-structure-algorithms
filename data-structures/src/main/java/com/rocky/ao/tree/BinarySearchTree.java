@@ -194,6 +194,34 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         return 1 + Math.max(height(node.left), height(node.right));
     }
 
+
+    public boolean isCompleteBinaryTree() {
+        if (root == null) { return false; }
+
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        boolean leaf = false;
+
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+
+            if (leaf && !node.isLeaf()) {
+                return false;
+            }
+
+            if (node.left != null && node.right != null) {
+                queue.offer(node.left);
+                queue.offer(node.right);
+            } else if (node.left == null && node.right == null) {
+                return false;
+            } else { // all leaf node
+                leaf = true;
+            }
+        }
+        return false;
+    }
+
     // traversal
     // preorder traversal
     public void preorderTraversal(Visitor<E> visitor) {
