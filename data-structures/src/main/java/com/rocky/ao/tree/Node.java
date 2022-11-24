@@ -33,4 +33,18 @@ public class Node<E> {
     public boolean hasTwoChildren() {
         return left != null && right != null;
     }
+
+    public static class AVLNode<E> extends Node<E> {
+        int height;
+
+        public int balanceFactor() {
+            int leftHeight = left == null ? 0 : ((AVLNode<E>)left).height;
+            int rightHeight = right == null ? 0 : ((AVLNode<E>)right).height;
+            return leftHeight - rightHeight;
+        }
+
+        public AVLNode(E element, Node<E> parent) {
+            super(element, parent);
+        }
+    }
 }
