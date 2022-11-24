@@ -18,13 +18,17 @@ public class AVLTree<E> extends BinarySearchTree<E> {
 
     @Override
     protected Node<E> createNode(E element, Node<E> parent) {
-        return new Node.AVLNode<>(element, parent);
+        return new AVLNode<>(element, parent);
     }
 
     @Override
     protected void afterAdd(Node<E> node) {
         while ((node = node.parent) != null) {
-
+            if (isBalanced(node)) {
+                updateHeight(node);
+            } else {
+                restoreBalance(node);
+            }
         }
     }
 
@@ -35,6 +39,18 @@ public class AVLTree<E> extends BinarySearchTree<E> {
      * @return true/false
      */
     private boolean isBalanced(Node<E> node) {
-        return Math.abs(((Node.AVLNode<E>)node).balanceFactor()) <= 1;
+        return Math.abs(((AVLNode<E>)node).balanceFactor()) <= 1;
+    }
+
+    private void updateHeight(Node<E> node) {
+        ((AVLNode<E>)node).updateHeight();
+    }
+
+    /**
+     * restore balance
+     * @param node unbalance node at min height
+     */
+    private void restoreBalance(Node<E> node) {
+        
     }
 }
