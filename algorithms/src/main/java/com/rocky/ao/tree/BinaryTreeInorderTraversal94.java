@@ -1,6 +1,8 @@
 package com.rocky.ao.tree;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public class BinaryTreeInorderTraversal94 {
     private List<Integer> list = new ArrayList<>();
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public List<Integer> inorderTraversal2(TreeNode root) {
         inorder(root);
         return list;
     }
@@ -21,5 +23,26 @@ public class BinaryTreeInorderTraversal94 {
         inorder(node.left);
         list.add(node.val);
         inorder(node.right);
+    }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+
+        Deque<TreeNode> queue = new LinkedList<>();
+
+        TreeNode node = root;
+
+        while (!queue.isEmpty() || node != null) {
+            while (node != null) {
+                queue.push(node);
+                node = node.left;
+            }
+
+            node = queue.pop();
+            res.add(node.val);
+            node = node.right;
+        }
+
+        return res;
     }
 }
