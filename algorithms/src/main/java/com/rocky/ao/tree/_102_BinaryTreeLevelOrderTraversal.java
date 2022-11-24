@@ -9,7 +9,7 @@ import java.util.*;
  * https://leetcode.com/problems/binary-tree-level-order-traversal/
  * https://leetcode.cn/problems/binary-tree-level-order-traversal/
  */
-public class BinaryTreeLevelOrderTraversal102 {
+public class _102_BinaryTreeLevelOrderTraversal {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
 

@@ -1,6 +1,5 @@
 package com.rocky.ao.stack;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -8,7 +7,7 @@ import java.util.Stack;
  * @date 2022/11/21 17:47
  * @description
  */
-public class EvaluateReversePolishNotation150 {
+public class _150_EvaluateReversePolishNotation {
     public int evalRPN(String[] tokens) {
         Stack<Integer> stack = new Stack<>();
 

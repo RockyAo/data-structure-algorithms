@@ -7,7 +7,7 @@ import java.util.*;
  * @date 2022/11/23 18:23
  * @description
  */
-public class BinaryTreePreorderTraversal144 {
+public class _144_BinaryTreePreorderTraversal {
     private List<Integer> list = new ArrayList<>();
     public List<Integer> preorderTraversal2(TreeNode root) {
         preorder(root);

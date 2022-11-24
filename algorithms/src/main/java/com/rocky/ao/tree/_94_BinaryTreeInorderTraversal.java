@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2022/11/23 18:32
  * @description
  */
-public class BinaryTreeInorderTraversal94 {
+public class _94_BinaryTreeInorderTraversal {
     private List<Integer> list = new ArrayList<>();
     public List<Integer> inorderTraversal2(TreeNode root) {
         inorder(root);

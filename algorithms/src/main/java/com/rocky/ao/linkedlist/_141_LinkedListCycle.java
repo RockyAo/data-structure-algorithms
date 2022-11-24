@@ -7,7 +7,7 @@ package com.rocky.ao.linkedlist;
  * https://leetcode.cn/problems/linked-list-cycle/
  * https://leetcode.com/problems/linked-list-cycle/
  */
-public class LinkedListCycle141 {
+public class _141_LinkedListCycle {
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null) {
             return false;

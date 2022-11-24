@@ -12,7 +12,7 @@ import java.util.Queue;
  * https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
  * https://leetcode.cn/problems/binary-tree-level-order-traversal-ii/
  */
-public class BinaryTreeLevelOrderTraversalII107 {
+public class _107_BinaryTreeLevelOrderTraversalII {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
 

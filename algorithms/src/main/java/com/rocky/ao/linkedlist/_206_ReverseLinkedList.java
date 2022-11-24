@@ -7,7 +7,7 @@ package com.rocky.ao.linkedlist;
  * https://leetcode.com/problems/reverse-linked-list/
  * https://leetcode.cn/problems/reverse-linked-list/
  */
-public class ReverseLinkedList206 {
+public class _206_ReverseLinkedList {
     public ListNode reverseListRecursion(ListNode head) {
         if (head == null || head.next == null) {
             return head;

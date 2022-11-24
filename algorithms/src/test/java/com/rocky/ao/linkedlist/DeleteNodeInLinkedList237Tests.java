@@ -24,7 +24,7 @@ public class DeleteNodeInLinkedList237Tests {
         Assert.assertEquals(node1.next.val, 9);
         Assert.assertEquals(node5.next.val,1);
 
-        DeleteNodeInLinkedList237 deleteNodeInLinkedList237 = new DeleteNodeInLinkedList237();
+        _237_DeleteNodeInLinkedList deleteNodeInLinkedList237 = new _237_DeleteNodeInLinkedList();
         deleteNodeInLinkedList237.deleteNode(node5);
         Assert.assertEquals(node5.val, 1);
         Assert.assertEquals(node5.next.val, 9);

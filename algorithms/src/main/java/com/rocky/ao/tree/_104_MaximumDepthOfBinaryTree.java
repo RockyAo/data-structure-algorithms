@@ -10,7 +10,7 @@ import java.util.Queue;
  * https://leetcode.com/problems/maximum-depth-of-binary-tree/
  * https://leetcode.cn/problems/maximum-depth-of-binary-tree/
  */
-public class MaximumDepthOfBinaryTree104 {
+public class _104_MaximumDepthOfBinaryTree {
     public int maxDepth(TreeNode root) {
         if (root == null) { return 0;}
 

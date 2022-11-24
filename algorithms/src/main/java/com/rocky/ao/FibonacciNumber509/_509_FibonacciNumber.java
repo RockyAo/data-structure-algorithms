@@ -1,7 +1,5 @@
 package com.rocky.ao.FibonacciNumber509;
 
-import com.rocky.utils.Times;
-
 /**
  * @author yun.ao
  * @date 2022/11/4 15:55
@@ -23,7 +21,7 @@ import com.rocky.utils.Times;
  * Given n, calculate F(n).
  *  https://leetcode.com/problems/fibonacci-number/
  */
-public class FibonacciNumber {
+public class _509_FibonacciNumber {
     public static int fib1(int number) {
         if (number <= 1) {
             return number;

@@ -7,11 +7,11 @@ import java.util.Stack;
  * @date 2022/11/21 20:05
  * @description
  */
-public class ImplementQueueUsingStacks232 {
+public class _232_ImplementQueueUsingStacks {
     private Stack<Integer> inStack;
     private Stack<Integer> outStack;
 
-    public ImplementQueueUsingStacks232() {
+    public _232_ImplementQueueUsingStacks() {
         inStack = new Stack<>();
         outStack = new Stack<>();
     }

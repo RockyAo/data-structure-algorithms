@@ -7,7 +7,7 @@ package com.rocky.ao.linkedlist;
  * https://leetcode.com/problems/middle-of-the-linked-list/
  * https://leetcode.cn/problems/middle-of-the-linked-list/
  */
-public class MiddleNode876 {
+public class _876_MiddleNode {
     public ListNode middleNode(ListNode head) {
         if (head == null || head.next == null) {
             return head;

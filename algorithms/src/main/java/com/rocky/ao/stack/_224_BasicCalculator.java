@@ -9,7 +9,7 @@ import java.util.Stack;
  * https://leetcode.com/problems/basic-calculator/
  * https://leetcode.cn/problems/basic-calculator/
  */
-public class BasicCalculator224 {
+public class _224_BasicCalculator {
     public int calculate(String s) {
         String[] rpn = getRPN(s);
         return evalRPN(rpn);

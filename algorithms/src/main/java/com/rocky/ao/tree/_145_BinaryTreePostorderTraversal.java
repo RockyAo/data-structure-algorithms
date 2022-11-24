@@ -12,7 +12,7 @@ import java.util.List;
  * https://leetcode.com/problems/binary-tree-postorder-traversal/
  * https://leetcode.cn/problems/binary-tree-postorder-traversal/
  */
-public class BinaryTreePostorderTraversal145 {
+public class _145_BinaryTreePostorderTraversal {
     public List<Integer> postorderTraversal(TreeNode root) {
 //        return postorderTraversalRecursion(root, new ArrayList<>());
 

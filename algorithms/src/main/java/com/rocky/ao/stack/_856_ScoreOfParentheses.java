@@ -1,7 +1,5 @@
 package com.rocky.ao.stack;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.Stack;
 
 /**
@@ -11,7 +9,7 @@ import java.util.Stack;
  * https://leetcode.cn/problems/score-of-parentheses/
  * https://leetcode.com/problems/score-of-parentheses/
  */
-public class ScoreOfParentheses856 {
+public class _856_ScoreOfParentheses {
     public int scoreOfParentheses(String s) {
         Stack<Integer> stack = new Stack<>();
         stack.add(0);

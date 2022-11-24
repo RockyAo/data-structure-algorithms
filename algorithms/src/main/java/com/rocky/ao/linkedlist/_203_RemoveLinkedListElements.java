@@ -7,7 +7,7 @@ package com.rocky.ao.linkedlist;
  * https://leetcode.com/problems/remove-linked-list-elements/
  * https://leetcode.cn/problems/remove-linked-list-elements
  */
-public class RemoveLinkedListElements203 {
+public class _203_RemoveLinkedListElements {
     // recrusion
     public ListNode removeElements(ListNode head, int val) {
         if (head == null) {

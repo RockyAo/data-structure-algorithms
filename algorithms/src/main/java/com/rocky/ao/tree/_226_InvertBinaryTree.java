@@ -8,7 +8,7 @@ import java.util.Queue;
  * @date 2022/11/23 14:28
  * @description
  */
-public class InvertBinaryTree226 {
+public class _226_InvertBinaryTree {
     public TreeNode invertTree(TreeNode root) {
         if (root == null) { return root; }
 

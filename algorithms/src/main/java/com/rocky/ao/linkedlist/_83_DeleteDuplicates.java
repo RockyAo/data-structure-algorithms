@@ -5,7 +5,7 @@ package com.rocky.ao.linkedlist;
  * @date 2022/11/16 16:14
  * @description
  */
-public class DeleteDuplicates83 {
+public class _83_DeleteDuplicates {
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null) {
             return head;
