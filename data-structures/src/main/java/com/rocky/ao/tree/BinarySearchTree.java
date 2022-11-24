@@ -50,6 +50,8 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         this.comparator = comparator;
     }
 
+    // O(logN)
+    // 从小到大添加 O(n）二叉搜索树退化成链表
     public void add(E element) {
         elementNotNullCheck(element);
 
