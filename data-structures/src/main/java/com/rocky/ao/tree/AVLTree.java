@@ -77,12 +77,24 @@ public class AVLTree<E> extends BinarySearchTree<E> {
     }
 
     private void rotateLeft(Node<E> grand) {
-        Node<E> parent = grand.left;
+        Node<E> parent = grand.right;
         Node<E> child = parent.left;
 
-        grand.right = parent.left;
+        grand.right = child;
         parent.left = grand;
 
+        afterRotate(grand, parent, child);
+    }
+    private void rotateRight(Node<E> grand) {
+        Node<E> parent = grand.left;
+        Node<E> child = parent.right;
+        grand.left = child;
+        parent.right = grand;
+
+        afterRotate(grand, parent, child);
+    }
+
+    private void afterRotate(Node<E> grand, Node<E>parent, Node<E> child) {
         // 让parent成为子树根节点
         parent.parent = grand.parent;
 
@@ -105,10 +117,5 @@ public class AVLTree<E> extends BinarySearchTree<E> {
 
         updateHeight(grand);
         updateHeight(parent);
-    }
-    private void rotateRight(Node<E> grand) {
-        Node<E> parent = grand.left;
-        grand.right = parent.left;
-        parent.right = grand;
     }
 }
