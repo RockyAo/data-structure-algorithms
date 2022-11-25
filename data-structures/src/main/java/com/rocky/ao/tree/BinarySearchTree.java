@@ -69,25 +69,23 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         // find the parent node
         Node<E> node = root;
         Node<E> parentNode = root;
-        ComparedResult comparedResult = null;
+        int cmp = 0;
         while (node != null) {
-            comparedResult = compare(element, node.element);
+            cmp = compare(element, node.element);
             parentNode = node;
-            switch (comparedResult) {
-                case EQUAL:
-                    node.element = element;
-                case ASCENDING:
-                    node = node.left;
-                    break;
-                case DESCENDING:
-                    node = node.right;
-                    break;
+            if (cmp > 0 ) {
+                node = node.right;
+            } else if (cmp < 0) {
+                node = node.left;
+            } else {
+                node.element = element;
+                return;
             }
         }
 
         // add new node
         Node<E> newNode = createNode(element, parentNode);
-        if (comparedResult == ComparedResult.DESCENDING) {
+        if (cmp > 0) {
             parentNode.right = newNode;
         } else {
             parentNode.left = newNode;
@@ -152,15 +150,13 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         Node<E> node = root;
 
         while (node != null) {
-            ComparedResult comparedResult = compare(element, node.element);
+            int cmp = compare(element, node.element);
 
-            switch (comparedResult) {
-                case EQUAL:
-                    return node;
-                case ASCENDING:
-                    node = node.right;
-                case DESCENDING:
-                    node = node.left;
+            if (cmp == 0) { return node; }
+            if (cmp > 0) {
+                node = node.right;
+            } else {
+                node = node.left;
             }
         }
         return null;
@@ -186,23 +182,10 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
      * @param e2 value2
      * @return ComparedResult
      */
-    private ComparedResult compare(E e1, E e2) {
-        int result;
+    private int compare(E e1, E e2) {
         if (comparator != null) {
-            // if had comparator use comparator to compare values
-            result = comparator.compare(e1, e2);
-        } else {
-            // otherwise, use Comparable interface to compare values
-            result = ((Comparable<E>) e1).compareTo(e2);
+            return comparator.compare(e1, e2);
         }
-
-        // generate compare result
-        if (result > 0) {
-            return ComparedResult.DESCENDING;
-        } else if (result < 0) {
-            return ComparedResult.ASCENDING;
-        } else {
-            return ComparedResult.EQUAL;
-        }
+        return ((Comparable<E>)e1).compareTo(e2);
     }
 }

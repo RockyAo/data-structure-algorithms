@@ -1,5 +1,7 @@
 package com.rocky.ao.tree;
 
+import com.rocky.utils.printer.BinaryTrees;
+
 import java.util.Comparator;
 
 /**
@@ -8,6 +10,30 @@ import java.util.Comparator;
  * @description
  */
 public class AVLTree<E> extends BinarySearchTree<E> {
+    public static void main(String[] args) {
+        Integer[] integers = { 74, 98, 16, 51, 25, 9, 83, 42, 76, 79 };
+
+        AVLTree<Integer> avl = new AVLTree<>();
+
+        for (int value: integers) {
+            avl.add(value);
+        }
+
+        BinaryTrees.print(avl);
+//        bst.preorderTraversal();
+//
+//        bst.inorderTraversal();
+//        bst.postorderTraversal();
+//        avl.levelOrderTraversal(new Visitor<Integer>() {
+//            @Override
+//            boolean visit(Integer element) {
+//                System.out.print(element + ",");
+//
+//                return element == 2 ? true : false;
+//            }
+//        });
+    }
+
     AVLTree() {
         this(null);
     }
@@ -28,6 +54,7 @@ public class AVLTree<E> extends BinarySearchTree<E> {
                 updateHeight(node);
             } else {
                 restoreBalance(node);
+                break;
             }
         }
     }
@@ -48,30 +75,24 @@ public class AVLTree<E> extends BinarySearchTree<E> {
 
     /**
      * restore balance
-     * @param grandNode unbalance node at min height
+     * @param grand unbalance node at min height
      */
-    private void restoreBalance(Node<E> grandNode) {
-        AVLNode<E> avlGrandNode = (AVLNode<E>) grandNode;
-        AVLNode<E> parent = avlGrandNode.tallerNode();
-        AVLNode<E> node = parent.tallerNode();
-
-        if (parent.isLeftNode()) {
-            if (node.isLeftNode()) {
-                // LL
-                rotateRight(grandNode);
-            } else {
-                // LR
+    private void restoreBalance(Node<E> grand) {
+        Node<E> parent = ((AVLNode<E>)grand).tallerNode();
+        Node<E> node = ((AVLNode<E>)parent).tallerNode();
+        if (parent.isLeftNode()) { // L
+            if (node.isLeftNode()) { // LL
+                rotateRight(grand);
+            } else { // LR
                 rotateLeft(parent);
-                rotateRight(grandNode);
+                rotateRight(grand);
             }
-        } else {
-            if (node.isLeftNode()) {
-                // RL
+        } else { // R
+            if (node.isLeftNode()) { // RL
                 rotateRight(parent);
-                rotateLeft(grandNode);
-            } else {
-                // RR
-                rotateRight(grandNode);
+                rotateLeft(grand);
+            } else { // RR
+                rotateLeft(grand);
             }
         }
     }

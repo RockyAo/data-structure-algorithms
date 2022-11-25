@@ -24,16 +24,16 @@ public class AVLNode<E> extends Node<E> {
         height = 1 + Math.max(leftHeight, rightHeight);
     }
 
-    public AVLNode<E> tallerNode() {
+    public Node<E> tallerNode() {
         int leftHeight = left == null ? 0 : ((AVLNode<E>)left).height;
         int rightHeight = right == null ? 0 : ((AVLNode<E>)right).height;
 
         if (leftHeight > rightHeight) {
-            return (AVLNode<E>) left;
+            return left;
         } else if (leftHeight < rightHeight) {
-            return (AVLNode<E>) right;
+            return right;
         } else {
-            return (AVLNode<E>) (isLeftNode() ? left : right);
+            return (isLeftNode() ? left : right);
         }
     }
 }
