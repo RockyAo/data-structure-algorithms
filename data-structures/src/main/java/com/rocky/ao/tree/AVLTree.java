@@ -48,9 +48,67 @@ public class AVLTree<E> extends BinarySearchTree<E> {
 
     /**
      * restore balance
-     * @param node unbalance node at min height
+     * @param grandNode unbalance node at min height
      */
-    private void restoreBalance(Node<E> node) {
-        
+    private void restoreBalance(Node<E> grandNode) {
+        AVLNode<E> avlGrandNode = (AVLNode<E>) grandNode;
+        AVLNode<E> parent = avlGrandNode.tallerNode();
+        AVLNode<E> node = parent.tallerNode();
+
+        if (parent.isLeftNode()) {
+            if (node.isLeftNode()) {
+                // LL
+                rotateRight(grandNode);
+            } else {
+                // LR
+                rotateLeft(parent);
+                rotateRight(grandNode);
+            }
+        } else {
+            if (node.isLeftNode()) {
+                // RL
+                rotateRight(parent);
+                rotateLeft(grandNode);
+            } else {
+                // RR
+                rotateRight(grandNode);
+            }
+        }
+    }
+
+    private void rotateLeft(Node<E> grand) {
+        Node<E> parent = grand.left;
+        Node<E> child = parent.left;
+
+        grand.right = parent.left;
+        parent.left = grand;
+
+        // 让parent成为子树根节点
+        parent.parent = grand.parent;
+
+        if (grand.isLeftNode()) {
+            grand.parent.left = parent;
+        } else if (grand.isRightNode()) {
+            grand.parent.right = parent;
+        } else {
+            // root node
+            root = parent;
+        }
+
+        // 更新child 的parent
+        if (child != null) {
+            child.parent = grand;
+        }
+
+        // 更新grand 的parent
+        grand.parent = parent;
+
+        updateHeight(grand);
+        updateHeight(parent);
+    }
+    private void rotateRight(Node<E> grand) {
+        Node<E> parent = grand.left;
+        grand.right = parent.left;
+        parent.right = grand;
     }
 }

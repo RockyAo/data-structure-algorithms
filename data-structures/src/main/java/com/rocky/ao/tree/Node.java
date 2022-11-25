@@ -33,4 +33,12 @@ public class Node<E> {
     public boolean hasTwoChildren() {
         return left != null && right != null;
     }
+
+    public boolean isLeftNode() {
+        return parent != null && this == parent.left;
+    }
+
+    public boolean isRightNode() {
+        return parent != null && this == parent.right;
+    }
 }
