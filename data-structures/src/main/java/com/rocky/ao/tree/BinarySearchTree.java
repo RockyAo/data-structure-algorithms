@@ -15,7 +15,7 @@ import java.util.Queue;
 public class BinarySearchTree<E> extends BinaryTree<E> {
 
     public static void main(String[] args) {
-        Integer[] integers = { 7, 4, 9, 2, 5, 8, 11, 3, 12, 1 };
+        Integer[] integers = { 39, 64, 22, 87, 2, 27, 45 };
 
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
@@ -59,6 +59,8 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             // add first node
             root = createNode(element, null);
             size ++;
+
+            afterAdd(root);
             return;
         }
 
@@ -69,7 +71,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         Node<E> parentNode = root;
         ComparedResult comparedResult = null;
         while (node != null) {
-            comparedResult = compare(element, parentNode.element);
+            comparedResult = compare(element, node.element);
             parentNode = node;
             switch (comparedResult) {
                 case EQUAL:
@@ -85,10 +87,10 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
 
         // add new node
         Node<E> newNode = createNode(element, parentNode);
-        if (comparedResult == ComparedResult.ASCENDING) {
-            parentNode.left = newNode;
-        } else if (comparedResult == ComparedResult.DESCENDING) {
+        if (comparedResult == ComparedResult.DESCENDING) {
             parentNode.right = newNode;
+        } else {
+            parentNode.left = newNode;
         }
 
         size++;
