@@ -59,6 +59,17 @@ public class AVLTree<E> extends BinarySearchTree<E> {
         }
     }
 
+    @Override
+    protected void afterRemove(Node<E> node) {
+        while ((node = node.parent) != null) {
+            if (isBalanced(node)) {
+                updateHeight(node);
+            } else {
+                restoreBalance(node);
+            }
+        }
+    }
+
     /**
      * jude node is balanced
      * if |balanceFactor| <= 1 then it is balanced
