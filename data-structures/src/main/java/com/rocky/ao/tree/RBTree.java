@@ -1,5 +1,7 @@
 package com.rocky.ao.tree;
 
+import com.rocky.utils.printer.BinaryTrees;
+
 import java.util.Comparator;
 
 /**
@@ -8,6 +10,21 @@ import java.util.Comparator;
  * @description Red Black Tree
  */
 public class RBTree<E> extends BalanceBinarySearchTree<E> {
+    public static void main(String[] args) {
+        Integer[] integers = { 59, 12, 65, 68, 42, 73, 92, 74, 71, 1 };
+
+        RBTree<Integer> avl = new RBTree<>();
+
+        for (int value: integers) {
+            avl.add(value);
+            System.out.println("add: -->" + value);
+            BinaryTrees.println(avl);
+        }
+
+        BinaryTrees.print(avl);
+    }
+
+
     RBTree() {
         this(null);
     }
@@ -17,28 +34,57 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
     }
 
     @Override
+    protected Node<E> createNode(E element, Node<E> parent) {
+        return new RBNode<>(element, parent);
+    }
+
+    @Override
     protected void afterAdd(Node<E> node) {
-        if (node == null) {
+        RBNode<E> parent = (RBNode<E>) node.parent;
+
+        if (parent == null) {
             // root node color to black
             colorNodeToBlack(node);
             return;
         }
 
-        RBNode<E> parent = (RBNode<E>) node.parent;
-
         if (isBlackNode(parent)) { return; }
 
         Node<E> sibling = parent.sibling();
-        Node<E> grand = parent.parent;
+        Node<E> grand = colorNodeToRed(parent.parent);
 
         if (isRedNode(sibling)) {
             colorNodeToBlack(parent);
             colorNodeToBlack(sibling);
 
             // let grand node as a new node add it again
-            colorNodeToRed(grand);
             afterAdd(grand);
             return;
+        }
+
+        if (parent.isLeftNode()) {
+            // L
+            if (node.isLeftNode()) {
+                // LL
+                colorNodeToBlack(parent);
+            } else {
+                // LR
+                colorNodeToBlack(node);
+                rotateLeft(parent);
+            }
+            rotateRight(grand);
+        } else {
+            // R
+            if (node.isLeftNode()) {
+                // RL
+                colorNodeToBlack(node);
+
+                rotateRight(parent);
+            } else {
+                // RR
+                colorNodeToBlack(parent);
+            }
+            rotateLeft(grand);
         }
     }
 
@@ -71,14 +117,14 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
     }
 
     private RBNode.Color colorOf(Node<E> node) {
-        return node == null ? RBNode.Color.BLACK :  ((RBNode<E>) node).color;
+        return node == null ? RBNode.Color.BLACK : ((RBNode<E>) node).color;
     }
 
     private boolean isBlackNode(Node<E> node) {
-        return ((RBNode<E>) node).color == RBNode.Color.BLACK;
+        return colorOf(node) == RBNode.Color.BLACK;
     }
 
     private boolean isRedNode(Node<E> node) {
-        return ((RBNode<E>) node).color == RBNode.Color.RED;
+        return colorOf(node) == RBNode.Color.RED;
     }
 }

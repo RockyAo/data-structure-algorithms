@@ -10,7 +10,7 @@ public class RBNode<E> extends Node<E> {
         RED, BLACK
     }
 
-    public  Color color;
+    public  Color color = Color.RED;
 
     public RBNode(E element, Node<E> left, Node<E> right, Node<E> parent) {
         super(element, left, right, parent);
@@ -35,5 +35,13 @@ public class RBNode<E> extends Node<E> {
         }
 
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "color=" + color +
+                " element=" + element +
+                '}';
     }
 }
