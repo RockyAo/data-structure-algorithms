@@ -18,7 +18,28 @@ public class RBTree<E> extends BinarySearchTree<E> {
 
     @Override
     protected void afterAdd(Node<E> node) {
-        super.afterAdd(node);
+        if (node == null) {
+            // root node color to black
+            colorNodeToBlack(node);
+            return;
+        }
+
+        RBNode<E> parent = (RBNode<E>) node.parent;
+
+        if (isBlackNode(parent)) { return; }
+
+        Node<E> sibling = parent.sibling();
+        Node<E> grand = parent.parent;
+
+        if (isRedNode(sibling)) {
+            colorNodeToBlack(parent);
+            colorNodeToBlack(sibling);
+
+            // let grand node as a new node add it again
+            colorNodeToRed(grand);
+            afterAdd(grand);
+            return;
+        }
     }
 
     @Override
