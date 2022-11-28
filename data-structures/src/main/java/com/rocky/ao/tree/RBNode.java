@@ -23,4 +23,17 @@ public class RBNode<E> extends Node<E> {
     public RBNode(E element) {
         super(element);
     }
+
+    // sibling node
+    public Node<E> sibling() {
+        if (isLeftNode()) {
+            return parent.right;
+        }
+
+        if (isRightNode()) {
+            return parent.left;
+        }
+
+        return null;
+    }
 }

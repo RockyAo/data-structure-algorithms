@@ -25,4 +25,39 @@ public class RBTree<E> extends BinarySearchTree<E> {
     protected void afterRemove(Node<E> node) {
         super.afterRemove(node);
     }
+
+    /**
+     * set color to node
+     * @param node node
+     * @param color Color Enum, Red or Black
+     * @return colored node
+     */
+    private Node<E> color(Node<E> node, RBNode.Color color) {
+        if (node == null) { return node; }
+
+        ((RBNode<E>) node).color = color;
+        return node;
+    }
+
+    private Node<E> colorNodeToRed(Node<E> node) {
+        color(node, RBNode.Color.RED);
+        return node;
+    }
+
+    private Node<E> colorNodeToBlack(Node<E> node) {
+        color(node, RBNode.Color.BLACK);
+        return node;
+    }
+
+    private RBNode.Color colorOf(Node<E> node) {
+        return node == null ? RBNode.Color.BLACK :  ((RBNode<E>) node).color;
+    }
+
+    private boolean isBlackNode(Node<E> node) {
+        return ((RBNode<E>) node).color == RBNode.Color.BLACK;
+    }
+
+    private boolean isRedNode(Node<E> node) {
+        return ((RBNode<E>) node).color == RBNode.Color.RED;
+    }
 }
