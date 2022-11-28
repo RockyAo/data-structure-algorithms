@@ -7,7 +7,7 @@ import java.util.Comparator;
  * @date 2022/11/28 17:44
  * @description Red Black Tree
  */
-public class RBTree<E> extends BinarySearchTree<E> {
+public class RBTree<E> extends BalanceBinarySearchTree<E> {
     RBTree() {
         this(null);
     }
