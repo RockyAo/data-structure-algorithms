@@ -89,12 +89,10 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
     }
 
     @Override
-    protected void afterRemove(Node<E> node, Node<E> replacementNode) {
-        if (isRedNode(node)) { return; }
-
-        if (isRedNode(replacementNode)) {
+    protected void afterRemove(Node<E> node) {
+        if (isRedNode(node)) {
             // color to black
-            colorNodeToBlack(replacementNode);
+            colorNodeToBlack(node);
             return;
         }
 
@@ -125,7 +123,7 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
                 colorNodeToRed(sibling);
 
                 if (isParentBlack) {
-                    afterRemove(parent, null);
+                    afterRemove(parent);
                 }
             } else {
                 // sibling has one red node at least
@@ -161,7 +159,7 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
                 colorNodeToRed(sibling);
 
                 if (isParentBlack) {
-                    afterRemove(parent, null);
+                    afterRemove(parent);
                 }
             } else {
                 // sibling has one red node at least
