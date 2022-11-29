@@ -25,7 +25,7 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
     }
 
 
-    RBTree() {
+    public RBTree() {
         this(null);
     }
 

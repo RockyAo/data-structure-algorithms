@@ -1,5 +1,7 @@
 package com.rocky.ao.set;
 
+import com.rocky.ao.protocols.Visitor;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,10 +18,9 @@ public class LinkedListSet<E> implements Set<E> {
         listSet.add(12);
         listSet.add(10);
         listSet.add(11);
-
         listSet.traversal(new Visitor<Integer>() {
             @Override
-            boolean visit(Integer element) {
+            public boolean visit(Integer element) {
                 System.out.println(element);
                 return false;
             }

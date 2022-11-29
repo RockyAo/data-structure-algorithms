@@ -1,5 +1,7 @@
 package com.rocky.ao.set;
 
+import com.rocky.ao.protocols.Visitor;
+
 /**
  * @author yun.ao
  * @date 2022/11/29 16:57
@@ -14,8 +16,4 @@ public interface Set<E> {
     void remove(E element);
     void traversal(Visitor<E> visitor);
 
-    public static abstract class Visitor<E> {
-        boolean isStop;
-        abstract boolean visit(E element);
-    }
 }

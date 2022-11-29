@@ -1,5 +1,6 @@
 package com.rocky.ao.tree;
 
+import com.rocky.ao.protocols.Visitor;
 import com.rocky.utils.printer.BinaryTreeInfo;
 import com.rocky.utils.printer.BinaryTrees;
 
@@ -30,7 +31,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
 //        bst.postorderTraversal();
         bst.levelOrderTraversal(new Visitor<Integer>() {
             @Override
-            boolean visit(Integer element) {
+            public boolean visit(Integer element) {
                 System.out.print(element + ",");
 
                 return element == 2 ? true : false;

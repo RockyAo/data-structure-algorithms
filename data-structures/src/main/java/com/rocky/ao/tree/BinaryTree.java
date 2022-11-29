@@ -1,4 +1,5 @@
 package com.rocky.ao.tree;
+import com.rocky.ao.protocols.Visitor;
 import com.rocky.utils.printer.BinaryTreeInfo;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,12 +10,6 @@ import java.util.Queue;
  * @description
  */
 public class BinaryTree<E> implements BinaryTreeInfo {
-    public static abstract class Visitor<E> {
-        boolean isStop;
-
-        abstract boolean visit(E element);
-    }
-
     protected int size;
     protected Node<E> root;
 
