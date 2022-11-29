@@ -41,4 +41,8 @@ public class Node<E> {
     public boolean isRightNode() {
         return parent != null && this == parent.right;
     }
+
+    public <T> T transformNodeType() {
+        return (T)this;
+    }
 }

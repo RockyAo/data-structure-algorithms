@@ -89,8 +89,97 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
     }
 
     @Override
-    protected void afterRemove(Node<E> node) {
-        super.afterRemove(node);
+    protected void afterRemove(Node<E> node, Node<E> replacementNode) {
+        if (isRedNode(node)) { return; }
+
+        if (isRedNode(replacementNode)) {
+            // color to black
+            colorNodeToBlack(replacementNode);
+            return;
+        }
+
+        // delete black node
+        Node<E> parent = node.parent;
+
+        if (parent == null) { return; }
+
+        // get delete node is left or right
+        boolean left = parent.left == null;
+
+        Node<E> sibling = left ? parent.right : parent.left;
+
+        if (left) {
+            if (isRedNode(sibling)) {
+                colorNodeToBlack(sibling);
+                colorNodeToRed(parent);
+                rotateLeft(parent);
+
+                sibling = parent.left;
+            }
+
+            // sibling node must be black
+            if (isBlackNode(sibling.left) && isBlackNode(sibling.right)) {
+                // sibling doesn't have any red node, parent node combine with sibling node
+                boolean isParentBlack = isBlackNode(parent);
+                colorNodeToBlack(parent);
+                colorNodeToRed(sibling);
+
+                if (isParentBlack) {
+                    afterRemove(parent, null);
+                }
+            } else {
+                // sibling has one red node at least
+                // borrow a node from sibling node
+                if (isBlackNode(sibling.right)) {
+                    // left is black, rotate sibling left
+                    rotateRight(sibling);
+                    sibling = parent.right;
+                }
+
+                color(sibling, colorOf(parent));
+                colorNodeToBlack(sibling.right);
+                colorNodeToBlack(parent);
+
+                rotateLeft(parent);
+            }
+        } else {
+            // right side, sibling node on the left
+
+            if (isRedNode(sibling)) {
+                colorNodeToBlack(sibling);
+                colorNodeToRed(parent);
+                rotateRight(parent);
+
+                sibling = parent.left;
+            }
+
+            // sibling node must be black
+            if (isBlackNode(sibling.left) && isBlackNode(sibling.right)) {
+                // sibling doesn't have any red node, parent node combine with sibling node
+                boolean isParentBlack = isBlackNode(parent);
+                colorNodeToBlack(parent);
+                colorNodeToRed(sibling);
+
+                if (isParentBlack) {
+                    afterRemove(parent, null);
+                }
+            } else {
+                // sibling has one red node at least
+                // borrow a node from sibling node
+                if (isBlackNode(sibling.left)) {
+                    // left is black, rotate sibling left
+                    rotateLeft(sibling);
+                    sibling = parent.left;
+                }
+
+                color(sibling, colorOf(parent));
+                colorNodeToBlack(sibling.left);
+                colorNodeToBlack(parent);
+
+                rotateRight(parent);
+            }
+        }
+
     }
 
     /**
