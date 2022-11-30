@@ -17,7 +17,7 @@ public interface Map<K, V> {
     void traversal(Visitor<K, V> visitor);
 
     public static abstract class Visitor<K, V> {
-        boolean stop;
-        abstract boolean visit(K key, V value);
+        public boolean stop;
+        public abstract boolean visit(K key, V value);
     }
 }
