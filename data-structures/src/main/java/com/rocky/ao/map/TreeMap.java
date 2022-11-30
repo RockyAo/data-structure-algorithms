@@ -1,10 +1,13 @@
 package com.rocky.ao.map;
 
+import com.rocky.ao.protocols.Visitor;
 import com.rocky.ao.tree.Node;
 import com.rocky.ao.tree.NodeColor;
 import com.rocky.ao.tree.RBNode;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author yun.ao
@@ -12,6 +15,22 @@ import java.util.Comparator;
  * @description
  */
 public class TreeMap<K, V> implements Map<K, V> {
+    public static void main(String[] args) {
+        TreeMap<String, Integer> map = new TreeMap<>();
+        map.put("a", 5);
+        map.put("b", 2);
+        map.put("c", 10);
+        map.put("a", 9);
+
+        map.traversal(new Visitor<String, Integer>() {
+            @Override
+            public boolean visit(String key, Integer value) {
+                System.out.println("key: " + key + " value: " + value);
+                return false;
+            }
+        });
+
+    }
     private int size;
     private Node<K, V> root;
 
@@ -152,17 +171,51 @@ public class TreeMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        return false;
+        return node(key) != null;
     }
 
     @Override
-    public boolean containsValue(V Value) {
+    public boolean containsValue(V value) {
+        if (root == null) { return false; }
+
+        Queue<Node<K, V>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            Node<K, V> node = queue.poll();
+
+            if (compareValues(value, node.value)) { return true; }
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+
         return false;
     }
 
     @Override
     public void traversal(Visitor<K, V> visitor) {
+        inorderTraversal(root, visitor);
+    }
 
+    private void inorderTraversal(Node<K, V> node, Visitor<K, V> visitor) {
+        if (node == null || visitor.stop) { return; }
+
+        inorderTraversal(node.left, visitor);
+        if (visitor.stop) {
+            return;
+        }
+        visitor.stop = visitor.visit(node.key, node.value);
+        inorderTraversal(node.right, visitor);
+    }
+
+    private boolean compareValues(V v1, V v2) {
+        return v1 == null ? v2 == null : v1.equals(v2);
     }
 
     private void afterPut(Node<K,V> node) {
