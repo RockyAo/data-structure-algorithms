@@ -6,11 +6,7 @@ package com.rocky.ao.tree;
  * @description
  */
 public class RBNode<E> extends Node<E> {
-    public static enum Color {
-        RED, BLACK
-    }
-
-    public  Color color = Color.RED;
+    public  NodeColor color = NodeColor.RED;
 
     public RBNode(E element, Node<E> left, Node<E> right, Node<E> parent) {
         super(element, left, right, parent);

@@ -186,7 +186,7 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
      * @param color Color Enum, Red or Black
      * @return colored node
      */
-    private Node<E> color(Node<E> node, RBNode.Color color) {
+    private Node<E> color(Node<E> node, NodeColor color) {
         if (node == null) { return node; }
 
         ((RBNode<E>) node).color = color;
@@ -194,24 +194,24 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
     }
 
     private Node<E> colorNodeToRed(Node<E> node) {
-        color(node, RBNode.Color.RED);
+        color(node, NodeColor.RED);
         return node;
     }
 
     private Node<E> colorNodeToBlack(Node<E> node) {
-        color(node, RBNode.Color.BLACK);
+        color(node, NodeColor.BLACK);
         return node;
     }
 
-    private RBNode.Color colorOf(Node<E> node) {
-        return node == null ? RBNode.Color.BLACK : ((RBNode<E>) node).color;
+    private NodeColor colorOf(Node<E> node) {
+        return node == null ? NodeColor.BLACK : ((RBNode<E>) node).color;
     }
 
     private boolean isBlackNode(Node<E> node) {
-        return colorOf(node) == RBNode.Color.BLACK;
+        return colorOf(node) == NodeColor.BLACK;
     }
 
     private boolean isRedNode(Node<E> node) {
-        return colorOf(node) == RBNode.Color.RED;
+        return colorOf(node) == NodeColor.RED;
     }
 }
