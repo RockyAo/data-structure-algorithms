@@ -283,8 +283,8 @@ public class HashMap<K, V> implements Map<K, V> {
 
     }
 
-    private TreeMap.Node<K, V> node(K key) {
-        TreeMap.Node<K, V> node = root;
+    private Node<K, V> node(K key) {
+        Node<K, V> node = root;
 
         while (node != null) {
             int cmp = compare(key, node.key);
@@ -299,10 +299,10 @@ public class HashMap<K, V> implements Map<K, V> {
         return null;
     }
 
-    private TreeMap.Node<K, V> successor(TreeMap.Node<K, V> node) {
+    private Node<K, V> successor(Node<K, V> node) {
         if (node == null) { return null; };
 
-        TreeMap.Node<K, V> p = node.right;
+        Node<K, V> p = node.right;
         if (p != null) {
             while (p.left != null) {
                 p = p.left;
@@ -318,25 +318,25 @@ public class HashMap<K, V> implements Map<K, V> {
         return node.parent;
     }
 
-    private void rotateLeft(TreeMap.Node<K, V> grand) {
-        TreeMap.Node<K, V> parent = grand.right;
-        TreeMap.Node<K, V> child = parent.left;
+    private void rotateLeft(Node<K, V> grand) {
+        Node<K, V> parent = grand.right;
+        Node<K, V> child = parent.left;
 
         grand.right = child;
         parent.left = grand;
 
         afterRotate(grand, parent, child);
     }
-    private void rotateRight(TreeMap.Node<K, V> grand) {
-        TreeMap.Node<K, V> parent = grand.left;
-        TreeMap.Node<K, V> child = parent.right;
+    private void rotateRight(Node<K, V> grand) {
+        Node<K, V> parent = grand.left;
+        Node<K, V> child = parent.right;
         grand.left = child;
         parent.right = grand;
 
         afterRotate(grand, parent, child);
     }
 
-    private void afterRotate(TreeMap.Node<K, V> grand, TreeMap.Node<K, V> parent, TreeMap.Node<K, V> child) {
+    private void afterRotate(Node<K, V> grand, Node<K, V> parent, Node<K, V> child) {
         // 让parent成为子树根节点
         parent.parent = grand.parent;
 
@@ -383,32 +383,32 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param color Color Enum, Red or Black
      * @return colored node
      */
-    private TreeMap.Node<K, V> color(TreeMap.Node<K, V> node, NodeColor color) {
+    private Node<K, V> color(Node<K, V> node, NodeColor color) {
         if (node == null) { return node; }
 
         node.color = color;
         return node;
     }
 
-    private TreeMap.Node<K, V> colorNodeToRed(TreeMap.Node<K, V> node) {
+    private Node<K, V> colorNodeToRed(Node<K, V> node) {
         color(node, NodeColor.RED);
         return node;
     }
 
-    private TreeMap.Node<K, V> colorNodeToBlack(TreeMap.Node<K, V> node) {
+    private Node<K, V> colorNodeToBlack(Node<K, V> node) {
         color(node, NodeColor.BLACK);
         return node;
     }
 
-    private NodeColor colorOf(TreeMap.Node<K, V> node) {
+    private NodeColor colorOf(Node<K, V> node) {
         return node == null ? NodeColor.BLACK : node.color;
     }
 
-    private boolean isBlackNode(TreeMap.Node<K, V> node) {
+    private boolean isBlackNode(Node<K, V> node) {
         return colorOf(node) == NodeColor.BLACK;
     }
 
-    private boolean isRedNode(TreeMap.Node<K, V> node) {
+    private boolean isRedNode(Node<K, V> node) {
         return colorOf(node) == NodeColor.RED;
     }
     private static class Node<K, V> {
