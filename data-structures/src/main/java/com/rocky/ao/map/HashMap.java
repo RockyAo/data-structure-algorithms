@@ -3,7 +3,9 @@ package com.rocky.ao.map;
 import com.rocky.ao.tree.NodeColor;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * @author yun.ao
@@ -104,7 +106,54 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
-        return null;
+        return remove(node(key));
+    }
+
+    private V remove(Node<K,V> node) {
+        if (node == null) { return null; }
+
+        V oldValue = node.value;
+
+        if (node.hasTwoChildren()) { //度为2的节点
+            Node<K, V> successor = successor(node);
+            node.key = successor.key;
+            node.value = successor.value;
+            node = successor;
+        }
+
+        Node<K, V> replacement = node.left != null ? node.left : node.right;
+        int index = index(node);
+        if (replacement != null) {
+            // node 是度为1
+            replacement.parent = node.parent;
+
+            if (node.parent == null) {
+                table[index] = replacement;
+            }
+
+            if (node == node.parent.left) {
+                node.parent.left = replacement;
+            } else if (node == node.parent.right) {
+                node.parent.right = replacement;
+            }
+
+            afterRemove(replacement);
+        } else if (node.parent == null) {
+            // 叶子且为根节点
+            table[index] = null;
+            afterRemove(node);
+        } else {
+            // 叶子
+            if (node == node.parent.right) {
+                node.parent.right = null;
+            } else {
+                node.parent.left = null;
+            }
+            afterRemove(node);
+        }
+
+        size--;
+        return oldValue;
     }
 
     @Override
@@ -113,13 +162,59 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public boolean containsValue(V Value) {
+    public boolean containsValue(V value) {
+        if (isEmpty()) { return false; }
+
+        Queue<Node<K, V>> queue = new LinkedList<>();
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] == null) { continue; }
+
+            queue.offer(table[i]);
+
+            while (!queue.isEmpty()) {
+                Node<K, V> node = queue.poll();
+                if (Objects.equals(value, node.value)) {
+                    return true;
+                }
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+
         return false;
     }
 
     @Override
     public void traversal(Visitor<K, V> visitor) {
+        if (size == 0 || visitor == null) { return; }
 
+        Queue<Node<K, V>> queue = new LinkedList<>();
+
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] == null) { continue; }
+
+            queue.offer(table[i]);
+
+            while (!queue.isEmpty()) {
+                Node<K, V> node = queue.poll();
+
+                if (visitor.visit(node.key, node.value)) { return; }
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
     }
 
 
