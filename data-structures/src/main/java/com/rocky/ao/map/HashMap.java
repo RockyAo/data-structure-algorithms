@@ -3,6 +3,7 @@ package com.rocky.ao.map;
 import com.rocky.ao.tree.NodeColor;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * @author yun.ao
@@ -65,8 +66,9 @@ public class HashMap<K, V> implements Map<K, V> {
         Node<K, V> parentNode = root;
         V oldValue = node.value;
         int cmp = 0;
+        int h1 = key == null ? 0 : key.hashCode();
         while (node != null) {
-            cmp = compare(key, node.key);
+            cmp = compare(key, node.key, h1, node.keyHash);
             parentNode = node;
             if (cmp > 0 ) {
                 node = node.right;
@@ -96,7 +98,8 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V get(K key) {
-        return null;
+        Node<K, V> node = node(key);
+        return node != null ? node.value : null;
     }
 
     @Override
@@ -106,7 +109,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean containsKey(K key) {
-        return false;
+        return node(key) != null;
     }
 
     @Override
@@ -127,6 +130,12 @@ public class HashMap<K, V> implements Map<K, V> {
         return keyHash & (table.length - 1);
     }
 
+    private int index(Node<K, V> node) {
+        if (node == null) { return 0; }
+        int keyHash = node.keyHash;
+        keyHash = keyHash ^ (keyHash >>> 16);
+        return keyHash & (table.length - 1);
+    }
 
     private void inorderTraversal(Node<K, V> node, Visitor<K, V> visitor) {
         if (node == null || visitor.stop) { return; }
@@ -284,10 +293,12 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     private Node<K, V> node(K key) {
-        Node<K, V> node = root;
+        Node<K, V> node = table[index(key)];
+
+        int h1 = key == null ? 0 : key.hashCode();
 
         while (node != null) {
-            int cmp = compare(key, node.key);
+            int cmp = compare(key, node.key, h1, node.hashCode());
 
             if (cmp == 0) { return node; }
             if (cmp > 0) {
@@ -346,7 +357,7 @@ public class HashMap<K, V> implements Map<K, V> {
             grand.parent.right = parent;
         } else {
             // root node
-            root = parent;
+            table[index(grand)] = parent;
         }
 
         // 更新child 的parent
@@ -364,11 +375,31 @@ public class HashMap<K, V> implements Map<K, V> {
      * @param k2 value2
      * @return ComparedResult
      */
-    private int compare(K k1, K k2) {
-        if (comparator != null) {
-            return comparator.compare(k1, k2);
+    private int compare(K k1, K k2, int h1, int h2) {
+        int result = h1 - h2;
+
+        if (result != 0) { return result; }
+
+        if (Objects.equals(k1, k2)) { return 0; }
+
+        // hash value equals, but not same key
+        if (k1 != null && k2 != null) {
+            String k1Class = k1.getClass().getName();
+            String k2Class = k2.getClass().getName();
+
+            result = k1Class.compareTo(k2Class);
+
+            if (result != 0) { return result; }
+
+            if (k1 instanceof Comparable) {
+                return ((Comparable)k1).compareTo(k2);
+            }
         }
-        return ((Comparable<K>)k1).compareTo(k2);
+
+        // same type but can't compare
+        // k1 = null || k2 == null
+        // use system RAM address
+        return System.identityHashCode(k1) - System.identityHashCode(k2);
     }
 
     private void keyEmptyCheck(K key) {
@@ -412,6 +443,7 @@ public class HashMap<K, V> implements Map<K, V> {
         return colorOf(node) == NodeColor.RED;
     }
     private static class Node<K, V> {
+        public int keyHash;
         public K key;
         public V value;
         Node<K, V> left;
@@ -420,6 +452,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
         public Node(K key, V value, Node<K, V> left, Node<K, V> right, Node<K, V> parent) {
             this.key = key;
+            this.keyHash = key == null ? 0 : key.hashCode();
             this.value = value;
             this.left = left;
             this.right = right;
