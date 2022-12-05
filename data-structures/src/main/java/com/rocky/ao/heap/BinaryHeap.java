@@ -68,7 +68,7 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         elementNotNullCheck(element);
         ensureCapacity(size + 1);
         elements[size++] = element;
-        shiftUp(size - 1);
+        siftUp(size - 1);
     }
 
     @Override
@@ -85,17 +85,28 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         elements[0] = elements[lastIndex];
         elements[lastIndex] = null;
         size--;
-        shiftDown(0);
+        siftDown(0);
         return root;
     }
 
     @Override
     public E replace(E element) {
         // 删除堆顶， 插入新的
-        return null;
+        elementNotNullCheck(element);
+
+        E root = null;
+        if (size == 0) {
+            elements[0] = element;
+            size++;
+        } else {
+            root = elements[0];
+            elements[0] = element;
+            siftDown(0);
+        }
+        return root;
     }
 
-    private void shiftDown(int index) {
+    private void siftDown(int index) {
         E element = elements[index];
         int half = size >> 1;
         // 第一个叶子节点的索引 == 非叶子节点的数量
@@ -128,7 +139,7 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         elements[index] = element;
     }
 
-    private void shiftUp(int index) {
+    private void siftUp(int index) {
         E element = elements[index];
         while (index > 0) {
             int parentIndex = (index - 1) >> 1;
