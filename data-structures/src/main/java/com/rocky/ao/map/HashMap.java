@@ -65,37 +65,66 @@ public class HashMap<K, V> implements Map<K, V> {
 
         // add new node to tree
         Node<K, V> node = root;
-        Node<K, V> parentNode = root;
-        V oldValue = node.value;
+        Node<K, V> parent = root;
         int cmp = 0;
-        int h1 = key == null ? 0 : key.hashCode();
-        while (node != null) {
-            cmp = compare(key, node.key, h1, node.keyHash);
-            parentNode = node;
-            if (cmp > 0 ) {
+        K k1 = key;
+        int h1 = hash(k1);
+        Node<K, V> result = null;
+        boolean searched = false; // 是否已经搜索过这个key
+        do {
+            parent = node;
+            K k2 = node.key;
+            int h2 = node.keyHash;
+            if (h1 > h2) {
+                cmp = 1;
+            } else if (h1 < h2) {
+                cmp = -1;
+            } else if (Objects.equals(k1, k2)) {
+                cmp = 0;
+            } else if (k1 != null && k2 != null
+                    && k1 instanceof Comparable
+                    && k1.getClass() == k2.getClass()
+                    && (cmp = ((Comparable)k1).compareTo(k2)) != 0) {
+            } else if (searched) { // 已经扫描了
+                cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+            } else { // searched == false; 还没有扫描，然后再根据内存地址大小决定左右
+                if ((node.left != null && (result = node(node.left, k1)) != null)
+                        || (node.right != null && (result = node(node.right, k1)) != null)) {
+                    // 已经存在这个key
+                    node = result;
+                    cmp = 0;
+                } else { // 不存在这个key
+                    searched = true;
+                    cmp = System.identityHashCode(k1) - System.identityHashCode(k2);
+                }
+            }
+
+            if (cmp > 0) {
                 node = node.right;
             } else if (cmp < 0) {
                 node = node.left;
-            } else {
-                node.value = value;
+            } else { // 相等
+                V oldValue = node.value;
                 node.key = key;
+                node.value = value;
+                node.keyHash = h1;
                 return oldValue;
             }
-        }
+        } while (node != null);
 
         // add new node
-        Node<K, V> newNode = new Node<>(key, value, parentNode);
+        Node<K, V> newNode = new Node<>(key, value, parent);
         if (cmp > 0) {
-            parentNode.right = newNode;
+            parent.right = newNode;
         } else {
-            parentNode.left = newNode;
+            parent.left = newNode;
         }
 
         size++;
 
         afterPut(newNode);
 
-        return oldValue;
+        return null;
     }
 
     @Override
@@ -388,21 +417,43 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     private Node<K, V> node(K key) {
-        Node<K, V> node = table[index(key)];
+        Node<K, V> root = table[index(key)];
+        return root == null ? null : node(root, key);
+    }
 
-        int h1 = key == null ? 0 : key.hashCode();
-
+    private Node<K, V> node(Node<K, V> node, K k1) {
+        int h1 = hash(k1);
+        // 存储查找结果
+        Node<K, V> result = null;
+        int cmp = 0;
         while (node != null) {
-            int cmp = compare(key, node.key, h1, node.hashCode());
-
-            if (cmp == 0) { return node; }
-            if (cmp > 0) {
+            K k2 = node.key;
+            int h2 = node.keyHash;
+            // 先比较哈希值
+            if (h1 > h2) {
                 node = node.right;
-            } else {
+            } else if (h1 < h2) {
+                node = node.left;
+            } else if (Objects.equals(k1, k2)) {
+                return node;
+            } else if (k1 != null && k2 != null
+                    && k1 instanceof Comparable
+                    && k1.getClass() == k2.getClass()
+                    && (cmp = ((Comparable)k1).compareTo(k2)) != 0) {
+                node = cmp > 0 ? node.right : node.left;
+            } else if (node.right != null && (result = node(node.right, k1)) != null) {
+                return result;
+            } else { // 只能往左边找
                 node = node.left;
             }
         }
         return null;
+    }
+
+    private int hash(K key) {
+        if (key == null) return 0;
+        int hash = key.hashCode();
+        return hash ^ (hash >>> 16);
     }
 
     private Node<K, V> successor(Node<K, V> node) {
