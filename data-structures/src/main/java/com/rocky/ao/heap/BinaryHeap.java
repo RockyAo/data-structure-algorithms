@@ -62,17 +62,25 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         elementNotNullCheck(element);
         ensureCapacity(size + 1);
         elements[size++] = element;
-        shifUp(size - 1);
+        shiftUp(size - 1);
     }
 
     @Override
     public E get() {
-        return null;
+        emptyCheck();
+        return elements[0];
     }
 
     @Override
     public E remove() {
-        return null;
+        emptyCheck();
+        int lastIndex = --size;
+        E root = elements[0];
+        elements[0] = elements[lastIndex];
+        elements[lastIndex] = null;
+        size--;
+        shiftDown(0);
+        return root;
     }
 
     @Override
@@ -80,7 +88,40 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         return null;
     }
 
-    private void shifUp(int index) {
+    private void shiftDown(int index) {
+        E element = elements[index];
+        int half = size >> 1;
+        // 第一个叶子节点的索引 == 非叶子节点的数量
+        // index < 第一个叶子节点的索引
+        // 必须保证index位置是非叶子节点
+        while (index < half) {
+            // index的节点有2种情况
+            // 1.只有左子节点
+            // 2.同时有左右子节点
+
+            // 默认为左子节点跟它进行比较
+            int childIndex = (index << 1) + 1;
+            E child = elements[childIndex];
+
+            // 右子节点
+            int rightIndex = childIndex + 1;
+
+            // 选出左右子节点最大的那个
+            if (rightIndex < size && compare(elements[rightIndex], child) > 0) {
+                child = elements[childIndex = rightIndex];
+            }
+
+            if (compare(element, child) >= 0) break;
+
+            // 将子节点存放到index位置
+            elements[index] = child;
+            // 重新设置index
+            index = childIndex;
+        }
+        elements[index] = element;
+    }
+
+    private void shiftUp(int index) {
         E element = elements[index];
         while (index > 0) {
             int parentIndex = (index - 1) >> 1;
@@ -107,6 +148,12 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
             newElements[i] = elements[i];
         }
         elements = newElements;
+    }
+
+    private void emptyCheck() {
+        if (size == 0) {
+            throw new IndexOutOfBoundsException("Heap is empty");
+        }
     }
 
     private void elementNotNullCheck(E element) {
