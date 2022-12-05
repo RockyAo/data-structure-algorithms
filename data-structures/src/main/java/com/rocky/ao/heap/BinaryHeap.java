@@ -39,7 +39,7 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
             for (int i = 0; i < elements.length; i++) {
                 this.elements[i] = elements[i];
             }
-//            heapify();
+            heapify();
         }
     }
 
@@ -153,6 +153,18 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
             index = parentIndex;
         }
         elements[index] = element;
+    }
+
+    private void heapify() {
+        // 自上而下的上滤
+//		for (int i = 1; i < size; i++) {
+//			siftUp(i);
+//		}
+
+        // 自下而上的下滤
+        for (int i = (size >> 1) - 1; i >= 0; i--) {
+            siftDown(i);
+        }
     }
 
     private void ensureCapacity(int capacity) {
