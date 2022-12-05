@@ -19,6 +19,8 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
         heap.add(50);
         heap.add(38);
         heap.add(90);
+
+        heap.remove();
         BinaryTrees.println(heap);
     }
 
@@ -55,6 +57,10 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 
     @Override
     public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
     }
 
     @Override
@@ -85,6 +91,7 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 
     @Override
     public E replace(E element) {
+        // 删除堆顶， 插入新的
         return null;
     }
 
