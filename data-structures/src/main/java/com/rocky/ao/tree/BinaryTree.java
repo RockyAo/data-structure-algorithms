@@ -224,6 +224,31 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     private void postorderTraversal(Node<E> node, Visitor<E> visitor) {
         if (node == null || visitor.isStop) { return; }
 
+        Node<E> prev = null;
+        Stack<Node<E>> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            Node<E> top = stack.peek();
+
+            if (top.isLeaf() || (prev != null && prev.parent == top)) {
+                prev = stack.pop();
+                // 访问节点
+                if (visitor.visit(prev.element)) return;
+            } else {
+                if (top.right != null) {
+                    stack.push(top.right);
+                }
+                if (top.left != null) {
+                    stack.push(top.left);
+                }
+            }
+        }
+    }
+
+    private void postorderTraversal2(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor.isStop) { return; }
+
         postorderTraversal(node.left, visitor);
         postorderTraversal(node.right, visitor);
 
