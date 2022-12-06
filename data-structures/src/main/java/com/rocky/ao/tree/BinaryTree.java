@@ -3,6 +3,7 @@ import com.rocky.ao.protocols.Visitor;
 import com.rocky.utils.printer.BinaryTreeInfo;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * @author yun.ao
@@ -145,6 +146,30 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     private void preorderTraversal(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor.isStop) { return; }
+
+        // use stack
+        Stack<Node<E>> stack = new Stack<>();
+
+        while (true) {
+            if (node != null) {
+                // visit node
+                if (visitor.visit(node.element)) { return; }
+
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+
+                node = node.left;
+            } else if (stack.isEmpty()) {
+                break;
+            } else {
+                node = stack.pop();
+            }
+        }
+    }
+
+    private void preorderTraversal2(Node<E> node, Visitor<E> visitor) {
         if (node == null || visitor.isStop) { return; }
         visitor.isStop = visitor.visit(node.element);
         preorderTraversal(node.left, visitor);
