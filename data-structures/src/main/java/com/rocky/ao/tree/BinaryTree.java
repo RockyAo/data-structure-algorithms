@@ -186,6 +186,26 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     private void inorderTraversal(Node<E> node, Visitor<E> visitor) {
         if (node == null || visitor.isStop) { return; }
 
+        Stack<Node<E>> stack = new Stack<>();
+        while (true) {
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            } else if (stack.isEmpty()) {
+                return;
+            } else {
+                Node<E> value = stack.pop();
+                if (visitor.visit(value.element)) { return; }
+
+                // 右节点中序
+                node = node.right;
+            }
+        }
+    }
+
+    private void inorderTraversal2(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor.isStop) { return; }
+
         inorderTraversal(node.left, visitor);
         if (visitor.isStop) {
             return;
