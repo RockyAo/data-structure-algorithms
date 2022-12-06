@@ -11,7 +11,7 @@ import java.util.Comparator;
  * @description 优先级队列
  */
 public class PriorityQueue<E> {
-    // 也可直接用数组实现（原理还是用数组实现二叉堆）
+    // 也可直接用数组实现（原理还是用数组实现二叉堆, 系统实现使用的最小堆）
     private BinaryHeap<E> heap;
 
     public PriorityQueue(Comparator<E> comparator) {
