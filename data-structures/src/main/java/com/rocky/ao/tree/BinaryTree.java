@@ -187,6 +187,26 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         if (node == null || visitor.isStop) { return; }
 
         Stack<Node<E>> stack = new Stack<>();
+        stack.push(node);
+        while (!stack.isEmpty()) {
+            Node<E> value = stack.pop();
+
+            if (visitor.visit(value.element)) { return; }
+
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+    }
+
+    private void inorderTraversal3(Node<E> node, Visitor<E> visitor) {
+        if (node == null || visitor.isStop) { return; }
+
+        Stack<Node<E>> stack = new Stack<>();
         while (true) {
             if (node != null) {
                 stack.push(node);
