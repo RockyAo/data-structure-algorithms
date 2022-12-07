@@ -1,9 +1,7 @@
 package com.rocky.ao.tree;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
 
 /**
  * @author yun.ao
