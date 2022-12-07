@@ -12,6 +12,7 @@
         <module>data-structures</module>
         <module>algorithms</module>
         <module>commons</module>
+        <module>leetcode</module>
     </modules>
 
     <properties>
