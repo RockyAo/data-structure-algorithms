@@ -58,6 +58,7 @@ public abstract class Sort<T extends Comparable<T>> implements Comparable<Sort<T
                 .append(compareCountStr)
                 .append("\n")
                 .append(swapCountStr)
+                .append("\n")
                 .append("--------------------------------------")
                 .toString();
     }

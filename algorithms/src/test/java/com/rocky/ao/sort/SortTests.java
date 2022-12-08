@@ -21,7 +21,8 @@ public class SortTests {
 
         testSorts(
                 randomData,
-                new BubbleSort1<>()
+                new BubbleSort1<>(),
+                new BubbleSort2<>()
                 );
     }
 
