@@ -22,16 +22,20 @@ public class SortTests {
         testSorts(
                 randomData,
                 new BubbleSort1<>(),
-                new BubbleSort2<>()
+                new BubbleSort2<>(),
+                new BubbleSort3<>()
                 );
     }
 
     private void testSorts(Integer[] array, Sort<Integer>... sorts) {
         for (Sort<Integer> sort : sorts) {
             Integer[] newArray = Integers.copy(array);
-            Integers.println(newArray);
+
+            printArray(newArray);
+
             sort.sort(newArray);
-            Integers.println(newArray);
+
+            printArray(newArray);
             Assert.assertTrue(Integers.isAscOrder(newArray));
         }
 
@@ -40,5 +44,15 @@ public class SortTests {
         for (Sort<Integer> sort : sorts) {
             System.out.println(sort);
         }
+    }
+
+    private <T> void printArray(T[] data) {
+        StringBuilder builder = new StringBuilder();
+
+        for (T value : data) {
+            builder.append(value).append(" ");
+        }
+        builder.append("\n");
+        System.out.println(builder);
     }
 }
