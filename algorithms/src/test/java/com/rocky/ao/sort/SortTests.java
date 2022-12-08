@@ -17,13 +17,14 @@ public class SortTests {
 
     @Test
     public void testAllSorts() {
-        Integer[] randomData = Integers.random(20, 0, 20);
+        Integer[] randomData = Integers.random(20, 0, 10);
 
         testSorts(
                 randomData,
-                new BubbleSort1<>(),
-                new BubbleSort2<>(),
-                new BubbleSort3<>()
+//                new BubbleSort1<>(),
+//                new BubbleSort2<>(),
+                new BubbleSort3<>(),
+                new SelectionSort<>()
                 );
     }
 
@@ -52,7 +53,6 @@ public class SortTests {
         for (T value : data) {
             builder.append(value).append(" ");
         }
-        builder.append("\n");
         System.out.println(builder);
     }
 }

@@ -51,6 +51,8 @@ public abstract class Sort<T extends Comparable<T>> implements Comparable<Sort<T
 //        String stableStr = "稳定性：" + isStable();
 
         return new StringBuilder()
+                .append("--------------------------------------")
+                .append("\n")
                 .append(getClass().getSimpleName())
                 .append("\n")
                 .append(timeStr)
