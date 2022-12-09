@@ -26,7 +26,8 @@ public class SortTests {
                 new BubbleSort3<>(),
                 new SelectionSort<>(),
                 new HeapSort<>(),
-                new InsertionSort<>()
+                new InsertionSort<>(),
+                new InsertionSort2<>()
                 );
     }
 

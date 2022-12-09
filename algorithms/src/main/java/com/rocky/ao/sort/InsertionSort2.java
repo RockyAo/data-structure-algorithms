@@ -12,10 +12,14 @@ public class InsertionSort2<T extends Comparable<T>> extends Sort<T> {
         for (int start = 1; start < data.length; start++) {
             int current = start;
 
-            while (current > 0 && cmp(current, current-1) < 0) {
-                swap(current, current-1);
+            T currentValue = data[current];
+
+            while (current > 0 && cmp(currentValue, data[current - 1]) < 0) {
+                data[current] = data[current - 1];
                 current--;
             }
+
+            data[current] = currentValue;
         }
     }
 }
