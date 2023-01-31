@@ -29,6 +29,10 @@ public abstract class Sort<T extends Comparable<T>> implements Comparable<Sort<T
 
     protected abstract void sort();
 
+    public String getName() {
+        return getClass().getSimpleName();
+    }
+
     @Override
     public int compareTo(Sort<T> o) {
         int result = (int) (time - o.time);

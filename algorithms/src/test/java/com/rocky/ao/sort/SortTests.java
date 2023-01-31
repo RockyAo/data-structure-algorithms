@@ -27,18 +27,19 @@ public class SortTests {
                 new SelectionSort<>(),
                 new HeapSort<>(),
                 new InsertionSort<>(),
-                new InsertionSort2<>()
+                new InsertionSort2<>(),
+                new MergeSort<>()
                 );
     }
 
     private void testSorts(Integer[] array, Sort<Integer>... sorts) {
         for (Sort<Integer> sort : sorts) {
             Integer[] newArray = Integers.copy(array);
-
+            System.out.println(sort.getName() + "排序前: ->");
             printArray(newArray);
 
             sort.sort(newArray);
-
+            System.out.println(sort.getName() + "排序后: ->");
             printArray(newArray);
             Assert.assertTrue(Integers.isAscOrder(newArray));
         }
