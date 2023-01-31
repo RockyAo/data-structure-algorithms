@@ -17,7 +17,7 @@ public class SortTests {
 
     @Test
     public void testAllSorts() {
-        Integer[] randomData = Integers.random(20, 0, 10);
+        Integer[] randomData = Integers.random(5000, 0, 10);
 
         testSorts(
                 randomData,
@@ -28,7 +28,8 @@ public class SortTests {
                 new HeapSort<>(),
                 new InsertionSort<>(),
                 new InsertionSort2<>(),
-                new MergeSort<>()
+                new MergeSort<>(),
+                new QuickSort<>()
                 );
     }
 
