@@ -29,7 +29,8 @@ public class SortTests {
 //                new InsertionSort<>(),
                 new InsertionSort2<>(),
                 new MergeSort<>(),
-                new QuickSort<>()
+                new QuickSort<>(),
+                new ShellSort<>()
                 );
     }
 
