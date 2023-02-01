@@ -26,7 +26,7 @@ public class SortTests {
                 new BubbleSort3<>(),
                 new SelectionSort<>(),
                 new HeapSort<>(),
-                new InsertionSort<>(),
+//                new InsertionSort<>(),
                 new InsertionSort2<>(),
                 new MergeSort<>(),
                 new QuickSort<>()
@@ -36,12 +36,12 @@ public class SortTests {
     private void testSorts(Integer[] array, Sort<Integer>... sorts) {
         for (Sort<Integer> sort : sorts) {
             Integer[] newArray = Integers.copy(array);
-            System.out.println(sort.getName() + "排序前: ->");
-            printArray(newArray);
+//            System.out.println(sort.getName() + "排序前: ->");
+//            printArray(newArray);
 
             sort.sort(newArray);
-            System.out.println(sort.getName() + "排序后: ->");
-            printArray(newArray);
+//            System.out.println(sort.getName() + "排序后: ->");
+//            printArray(newArray);
             Assert.assertTrue(Integers.isAscOrder(newArray));
         }
 

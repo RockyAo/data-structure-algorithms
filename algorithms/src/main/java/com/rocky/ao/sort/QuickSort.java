@@ -34,37 +34,46 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
         boolean direction = true;
 
         while (begin < end) {
-            if (direction) {
-                if (cmp(pivot, data[end]) < 0) { // 右边元素 > 轴点元素
-                    end--;
-                } else { // 右边元素 <= 轴点元素
-                    data[begin++] = data[end];
-                    direction = false;
-                }
-            } else {
-                if (cmp(pivot, data[begin]) > 0) { // 左边元素 < 轴点元素
-                    begin++;
-                } else { // 左边元素 >= 轴点元素
-                    data[end--] = data[begin];
-                    direction = true;
-                }
-            }
-//            while (begin < end) {
+            // QuickSort
+            //             * 耗时：0.041s(41ms)
+            //             * 比较：329.40万
+            //             * 交换：11.68万
+//            if (direction) {
 //                if (cmp(pivot, data[end]) < 0) { // 右边元素 > 轴点元素
 //                    end--;
 //                } else { // 右边元素 <= 轴点元素
 //                    data[begin++] = data[end];
-//                    break;
+//                    direction = false;
 //                }
-//            }
-//            while (begin < end) {
+//            } else {
 //                if (cmp(pivot, data[begin]) > 0) { // 左边元素 < 轴点元素
 //                    begin++;
 //                } else { // 左边元素 >= 轴点元素
 //                    data[end--] = data[begin];
-//                    break;
+//                    direction = true;
 //                }
 //            }
+
+            // QuickSort
+            // 耗时：0.042s(42ms)
+            // 比较：335.16万
+            // 交换：11.59万
+            while (begin < end) {
+                if (cmp(pivot, data[end]) < 0) { // 右边元素 > 轴点元素
+                    end--;
+                } else { // 右边元素 <= 轴点元素
+                    data[begin++] = data[end];
+                    break;
+                }
+            }
+            while (begin < end) {
+                if (cmp(pivot, data[begin]) > 0) { // 左边元素 < 轴点元素
+                    begin++;
+                } else { // 左边元素 >= 轴点元素
+                    data[end--] = data[begin];
+                    break;
+                }
+            }
         }
 
         // 将轴点元素放入最终的位置
